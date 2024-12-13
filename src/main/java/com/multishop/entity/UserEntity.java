@@ -20,6 +20,15 @@ public class UserEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "profile_picture")
+    private String profilePicture;
+    
+    @Column(name = "provider")
+    private String provider;
+    
+    @Column(name = "provider_id")
+    private String providerId;
 
     @Column(name = "first_name", length = 50)
     private String firstName;

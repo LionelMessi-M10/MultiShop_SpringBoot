@@ -36,5 +36,4 @@ public class BaseEntity implements Serializable {
     @LastModifiedBy
     private String modifiedBy;
 
-
 }
