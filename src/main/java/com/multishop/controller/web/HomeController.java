@@ -14,18 +14,21 @@ public class HomeController {
 	
 	@GetMapping("/home")
 	public String homePage(UserDTO userDTO, Model model) {
+		model.addAttribute("activePage", "home");
 		model.addAttribute("userDTO", userDTO);
 		return "web/index";
 	}
 	
 	@GetMapping("/products")
 	public String shopPage(UserDTO userDTO, Model model) {
+		model.addAttribute("activePage", "shop");
 		model.addAttribute("userDTO", userDTO);
 		return "web/shop";
 	}
 	
 	@GetMapping("/orders")
 	public String orderPage(UserDTO userDTO, Model model) {
+		model.addAttribute("activePage", "orders");
 		model.addAttribute("userDTO", userDTO);
 		return "web/order";
 	}

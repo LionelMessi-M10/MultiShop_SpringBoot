@@ -40,11 +40,16 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="/shop/home" class="nav-item nav-link">Home</a>
-                        <a href="/shop/products" class="nav-item nav-link active">Shop</a>
-                        <a href="/shop/orders" class="nav-item nav-link active">Orders</a>
-                        <a href="/shop/product" class="nav-item nav-link">Shop Detail</a>
+                    <div class="navbar-nav navbar-navigation mr-auto py-0">
+                        <a th:href="@{/shop/home}"
+						   th:classappend="${activePage == 'home'} ? ' active'"
+						   class="nav-item nav-link">
+						   Home
+						</a>
+						                        
+                        <a th:href="@{/shop/products}" class="nav-item nav-link" th:classappend="${activePage == 'shop'} ? ' active'">Shop</a>
+                        <a th:href="@{/shop/orders}" class="nav-item nav-link" th:classappend="${activePage == 'orders'} ? ' active'">Orders</a>
+                        <a th:href="@{/shop/product}" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
                                     class="fa fa-angle-down mt-1"></i></a>

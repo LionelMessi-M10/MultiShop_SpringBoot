@@ -16,25 +16,12 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     
     @Column(name = "profile_picture")
     private String profilePicture;
-    
-    @Column(name = "provider")
-    private String provider;
-    
-    @Column(name = "provider_id")
-    private String providerId;
 
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Column(name = "last_name", length = 50)
-    private String lastName;
+    @Column(name = "full_name", length = 255)
+    private String fullName;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -42,11 +29,8 @@ public class UserEntity extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "gender", length = 50)
+    @Column(name = "gender", length = 10)
     private String gender;
-
-    @Column(name = "status")
-    private Byte status;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role",
