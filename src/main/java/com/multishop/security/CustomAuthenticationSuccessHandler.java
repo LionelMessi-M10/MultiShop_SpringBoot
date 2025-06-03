@@ -24,17 +24,17 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     return;
                 }
                 case "ROLE_ADMIN" -> {
-                    getRedirectStrategy().sendRedirect(request, response, "/admin/home");
+                    getRedirectStrategy().sendRedirect(request, response, "/admin");
                     return;
                 }
                 case "ROLE_SELLER" -> {
-                    getRedirectStrategy().sendRedirect(request, response, "/seller/home");
+                    getRedirectStrategy().sendRedirect(request, response, "/seller");
                     return;
                 }
             }
         }
         // Nếu không khớp với bất kỳ vai trò nào, bạn có thể chuyển hướng đến một trang mặc định hoặc xử lý khác
-        getRedirectStrategy().sendRedirect(request, response, "/web/login?error");
+        getRedirectStrategy().sendRedirect(request, response, "/shop/login?error");
     }
 }
 

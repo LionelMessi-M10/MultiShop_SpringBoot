@@ -40,13 +40,13 @@ public class ConfigSecurity {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationSuccessHandler authenticationSuccessHandler) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationSuccessHandler authenticationSuccessHandler) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(
                         configurer-> configurer
-                                .requestMatchers("/shop/**").permitAll()
-                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
-                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+//                                .requestMatchers("/shop/**").permitAll()
+//                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
+//                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form->form.loginPage("/shop/login")
