@@ -16,5 +16,10 @@ public class UserController {
 		model.addAttribute("userDTO", userDTO);
 		return "web/login";
 	}
-
+	
+	@GetMapping("/register")
+	public String registerPage(UserDTO userRegister, Model model) {
+		model.addAttribute("userRegister", model);
+		return "web/register";
+	}
 }

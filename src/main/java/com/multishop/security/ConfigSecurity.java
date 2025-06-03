@@ -49,7 +49,7 @@ public class ConfigSecurity {
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .anyRequest().permitAll()
                 ).formLogin(
-                        form->form.loginPage("/web/login")
+                        form->form.loginPage("/shop/login")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .successHandler(authenticationSuccessHandler)
                                 .permitAll()
