@@ -17,9 +17,9 @@
 
 
 	<!-- Form register Start -->
-	<div class="container w-50">
+	<div class="container w-25">
 		<h2 class="text-center">Register</h2>
-		<form th:action="@{/register}" method="POST" th:object="${userRegister}"
+		<form th:action="@{/shop/register}" method="POST" th:object="${user}"
 			id="registrationForm">
 
 			<div class="row">
@@ -62,6 +62,8 @@
 				</div>
 
 				<!-- Confirm password input -->
+				
+				<!-- 
 				<div class="col">
 					<div class="form-outline mb-4">
 						<label class="form-label" for="confirmPassword">Confirm
@@ -70,6 +72,7 @@
 						<div class="invalid-feedback">Mật khẩu không khớp.</div>
 					</div>
 				</div>
+				 -->
 			</div>
 
 			<!-- Gender radio -->
@@ -78,17 +81,17 @@
 					<div class="col-6">
 						<label class="form-check-label mb-2">Gender</label>
 						<div class="row">
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-check">
 									<input class="form-check-input" type="radio" id="male"
-										name="gender" value="male" th:field="*{gender}" /> <label class="form-check-label"
+										name="gender" value="1" th:field="*{gender}" /> <label class="form-check-label"
 										for="male">Male</label>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-8">
 								<div class="form-check">
 									<input class="form-check-input" type="radio" id="female"
-										name="gender" value="female" th:field="*{gender}" /> <label
+										name="gender" value="0" th:field="*{gender}" /> <label
 										class="form-check-label" for="female">Female</label>
 								</div>
 							</div>
@@ -98,17 +101,17 @@
 					<div class="col-6">
 						<label class="form-check-label mb-2">Role</label>
 						<div class="row">
-							<div class="col-3">
+							<div class="col-6">
 								<div class="form-check">
 									<input class="form-check-input" type="radio" id="customer"
-										name="role" value="customer" /> <label
+										name="role" value="1" th:field="*{roleId}" /> <label
 										class="form-check-label" for="customer">Customer</label>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-6">
 								<div class="form-check">
 									<input class="form-check-input" type="radio" id="seller"
-										name="role" value="seller" /> <label class="form-check-label"
+										name="role" value="2" th:field="*{roleId}" /> <label class="form-check-label"
 										for="seller">Seller</label>
 								</div>
 							</div>

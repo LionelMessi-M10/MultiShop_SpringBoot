@@ -32,10 +32,10 @@ public class ConfigSecurity {
     @Autowired
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setUsersByUsernameQuery("SELECT email, password, enabled FROM users WHERE username=?");
+        userDetailsManager.setUsersByUsernameQuery("SELECT email, password, enabled FROM users WHERE email=?");
         userDetailsManager.setAuthoritiesByUsernameQuery("select u.email, r.code from users u " +
                 "inner join user_role ur on u.id = ur.user_id " +
-                "inner join roles r on ur.role_id = r.id where u.username=?");
+                "inner join roles r on ur.role_id = r.id where u.email=?");
         return userDetailsManager;
     }
 
@@ -44,9 +44,9 @@ public class ConfigSecurity {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(
                         configurer-> configurer
-//                                .requestMatchers("/shop/**").permitAll()
-//                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
-//                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/shop/**").permitAll()
+                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
+                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form->form.loginPage("/shop/login")

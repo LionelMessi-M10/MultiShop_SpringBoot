@@ -16,9 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-    
-    @Column(name = "profile_picture")
-    private String profilePicture;
 
     @Column(name = "full_name", length = 255)
     private String fullName;
@@ -30,7 +27,11 @@ public class UserEntity extends BaseEntity {
     private String password;
 
     @Column(name = "gender", length = 10)
-    private String gender;
+    private Byte gender;
+    
+    @Column(name = "enabled")
+    private Integer enabled = 1;
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role",
