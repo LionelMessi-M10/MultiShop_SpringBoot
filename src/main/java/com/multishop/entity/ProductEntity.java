@@ -1,0 +1,50 @@
+package com.multishop.entity;
+
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "products")
+public class ProductEntity extends BaseEntity {
+
+	@Column(name = "name", nullable = false)
+	private String name;
+	
+	@Column(name = "description")
+	private String description;
+	
+	@Column(name = "price")
+	private Double price;
+	
+	@Column(name = "discount")
+	private Float discount;
+	
+	@Column(name = "stock")
+	private Integer stock;
+	
+	@ManyToOne 
+	@JoinColumn(name = "category_id")
+    private CategoryEntity category;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> images;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductAttributeValue> attributeValues;
+	
+	
+}
