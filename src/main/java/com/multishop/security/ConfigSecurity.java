@@ -44,9 +44,9 @@ public class ConfigSecurity {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(
                         configurer-> configurer
-                                .requestMatchers("/shop/**").permitAll()
-                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
-                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+//                                .requestMatchers("/shop/**").permitAll()
+//                                .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
+//                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form->form.loginPage("/shop/login")
