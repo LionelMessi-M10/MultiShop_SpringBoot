@@ -14,10 +14,7 @@ import lombok.Setter;
 @Table(name = "wards")
 @Getter 
 @Setter
-public class Ward {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Ward extends BaseEntity {
 
     private String name;
 

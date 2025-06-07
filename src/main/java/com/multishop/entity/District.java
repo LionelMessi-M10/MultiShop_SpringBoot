@@ -17,10 +17,7 @@ import lombok.Setter;
 @Table(name = "districts")
 @Getter 
 @Setter
-public class District {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class District extends BaseEntity {
 
     private String name;
 
