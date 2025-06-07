@@ -7,4 +7,6 @@ import com.multishop.entity.OrderEntity;
 public interface InvoicePdfService {
 
 	File generateInvoicePdf(OrderEntity order) throws Exception;
+	void sendOrderEmailWithPdf(OrderEntity order, File pdfInvoice) throws Exception;
+	
 }
