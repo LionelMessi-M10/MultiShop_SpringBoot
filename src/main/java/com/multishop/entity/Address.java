@@ -12,22 +12,25 @@ import lombok.Setter;
 @Table(name = "addresses")
 @Getter 
 @Setter
-public class Address extends BaseEntity {
+public class Address extends Base {
 	
 	@Column(name = "address_detail")
     private String addressDetail;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
-    @ManyToOne @JoinColumn(name = "province_id")
+    @ManyToOne
+    @JoinColumn(name = "province_id")
     private Province province;
 
-    @ManyToOne @JoinColumn(name = "district_id")
+    @ManyToOne
+    @JoinColumn(name = "district_id")
     private District district;
 
-    @ManyToOne @JoinColumn(name = "ward_id")
+    @ManyToOne
+    @JoinColumn(name = "ward_id")
     private Ward ward;
 }
 

@@ -15,19 +15,19 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "categories")
-public class CategoryEntity extends BaseEntity {
+public class Category extends Base {
 	
 	@Column(name = "category_nm")
 	private String categoryName;
 	
-	@Column(name = "image_path")
-	private String imagePath;
+	@Column(name = "image")
+	private String image;
 	
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
-	private CategoryEntity parent;
+	private Category parent;
 	
 	@OneToMany(mappedBy = "parent")
-	private List<CategoryEntity> childden;
+	private List<Category> childden;
 	
 }

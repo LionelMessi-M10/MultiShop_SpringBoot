@@ -13,14 +13,14 @@ import lombok.Setter;
 @Table(name = "coupon_users")
 @Getter 
 @Setter
-public class CouponUser extends BaseEntity {
+public class CouponUser extends Base {
     @ManyToOne
     @JoinColumn(name = "coupon_id")
-    private CouponEntity coupon;
+    private Coupon coupon;
 
     @ManyToOne 
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
     private LocalDateTime usedAt;
 }

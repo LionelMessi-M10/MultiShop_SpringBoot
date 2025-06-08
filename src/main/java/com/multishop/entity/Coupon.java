@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "coupons")
 @Getter 
 @Setter
-public class CouponEntity extends BaseEntity {
+public class Coupon extends Base {
     private String code;
     private String discountType; // percent/fixed
     private Float discountValue;

@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.multishop.entity.UserEntity;
+import com.multishop.entity.User;
 import com.multishop.model.dto.UserDTO;
 import com.multishop.repository.RoleRepository;
 import com.multishop.repository.UserRepository;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public void registerAccount(UserDTO userDTO) {
-		UserEntity newUser = new UserEntity();
+		User newUser = new User();
 		
 		newUser.setFullName(userDTO.getFirstName().trim() + " " + userDTO.getLastName().trim());
 		newUser.setEmail(userDTO.getEmail());
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserEntity getCurrentUser() {
+	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String email = authentication.getName();
 	    return userRepository.findByEmail(email);

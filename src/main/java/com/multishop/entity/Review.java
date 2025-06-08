@@ -11,14 +11,14 @@ import lombok.Setter;
 @Table(name = "reviews")
 @Getter
 @Setter
-public class ReviewEntity extends BaseEntity {
+public class Review extends Base {
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
     private int rating;
     private String comment;

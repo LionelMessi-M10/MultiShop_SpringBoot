@@ -3,10 +3,10 @@ package com.multishop.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.multishop.entity.UserEntity;
+import com.multishop.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-	UserEntity findByEmail(String email);
+	User findByEmail(String email);
 }

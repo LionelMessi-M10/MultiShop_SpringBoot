@@ -11,13 +11,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "product_images")
 @Getter @Setter
-public class ProductImage extends BaseEntity {
+public class ProductImage extends Base {
 	
     private String url;
     private Boolean isThumbnail;
 
     @ManyToOne 
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    private Product product;
 }
 

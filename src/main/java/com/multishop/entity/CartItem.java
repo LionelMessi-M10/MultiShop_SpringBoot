@@ -11,14 +11,14 @@ import lombok.Setter;
 @Table(name = "cart_items")
 @Getter
 @Setter
-public class CartItem extends BaseEntity {
+public class CartItem extends Base {
 	@ManyToOne
 	@JoinColumn(name = "cart_id")
-	private CartEntity cart;
+	private Cart cart;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private ProductEntity product;
+	private Product product;
 
 	private int quantity;
 }

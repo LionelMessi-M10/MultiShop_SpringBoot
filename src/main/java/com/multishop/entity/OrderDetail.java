@@ -13,14 +13,14 @@ import lombok.Setter;
 @Table(name = "order_details")
 @Getter
 @Setter
-public class OrderDetail extends BaseEntity {
+public class OrderDetail extends Base {
     @ManyToOne 
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    private Product product;
 
     private int quantity;
     private BigDecimal priceAtOrder;

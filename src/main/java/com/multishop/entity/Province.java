@@ -3,9 +3,6 @@ package com.multishop.entity;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -15,7 +12,7 @@ import lombok.Setter;
 @Table(name = "provinces")
 @Getter 
 @Setter
-public class Province extends BaseEntity {
+public class Province extends Base {
 
     private String name;
 

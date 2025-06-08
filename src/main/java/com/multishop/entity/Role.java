@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "roles")
-public class RoleEntity extends BaseEntity {
+public class Role extends Base {
 
     @Column(name = "code", length = 50, nullable = false)
     private String code;
@@ -24,5 +24,5 @@ public class RoleEntity extends BaseEntity {
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<UserEntity> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 }

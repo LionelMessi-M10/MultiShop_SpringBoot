@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "products")
-public class ProductEntity extends BaseEntity {
+public class Product extends Base {
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -38,7 +38,7 @@ public class ProductEntity extends BaseEntity {
 	
 	@ManyToOne 
 	@JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    private Category category;
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> images;

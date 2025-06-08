@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "wards")
 @Getter 
 @Setter
-public class Ward extends BaseEntity {
+public class Ward extends Base {
 
     private String name;
 

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Table(name = "payments")
 @Getter
 @Setter
-public class Payment extends BaseEntity {
+public class Payment extends Base {
     @OneToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;

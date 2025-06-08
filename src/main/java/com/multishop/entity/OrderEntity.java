@@ -18,10 +18,10 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "orders")
-public class OrderEntity extends BaseEntity {
+public class OrderEntity extends Base {
     @ManyToOne 
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> details;

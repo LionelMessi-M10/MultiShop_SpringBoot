@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "shippings")
 @Getter
 @Setter
-public class Shipping extends BaseEntity {
+public class Shipping extends Base {
     @OneToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;

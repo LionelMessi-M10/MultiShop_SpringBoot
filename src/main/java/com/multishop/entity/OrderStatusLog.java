@@ -11,7 +11,7 @@ import lombok.Setter;
 @Table(name = "order_status_logs")
 @Getter
 @Setter
-public class OrderStatusLog extends BaseEntity {
+public class OrderStatusLog extends Base {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;

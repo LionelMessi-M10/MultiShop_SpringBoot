@@ -14,10 +14,10 @@ import lombok.Setter;
 @Table(name = "carts")
 @Getter 
 @Setter
-public class CartEntity extends BaseEntity {
+public class Cart extends Base {
 	
     @OneToOne @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> items;
