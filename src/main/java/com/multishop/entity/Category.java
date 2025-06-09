@@ -4,8 +4,6 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -23,11 +21,6 @@ public class Category extends Base {
 	@Column(name = "image")
 	private String image;
 	
-	@ManyToOne
-	@JoinColumn(name = "parent_id")
-	private Category parent;
-	
-	@OneToMany(mappedBy = "parent")
-	private List<Category> childden;
-	
+	@OneToMany(mappedBy = "category")
+	private List<SubCategory> subCategories;
 }
