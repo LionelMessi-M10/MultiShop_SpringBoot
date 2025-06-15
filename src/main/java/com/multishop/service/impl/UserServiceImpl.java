@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public void registerAccount(UserDTO userDTO) {
 		User newUser = new User();
 		
-		newUser.setFullName(userDTO.getFirstName().trim() + " " + userDTO.getLastName().trim());
+		newUser.setFullName(userDTO.getFullName().trim());
 		newUser.setEmail(userDTO.getEmail());
 		newUser.setPassword(byBCryptPasswordEncoder.encode(userDTO.getPassword()));
 		newUser.setGender(userDTO.getGender());

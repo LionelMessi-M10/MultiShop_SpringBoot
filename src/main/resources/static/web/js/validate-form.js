@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmPasswordFeedback = document.querySelector('#confirmPassword ~ .invalid-feedback');
     const roleRadios = document.getElementsByName('role');
     const subscribeCheckbox = document.querySelector('.subscribe');
-    const firstNameInput = document.getElementById('firstName');
-    const lastNameInput = document.getElementById('lastName');
+    const firstNameInput = document.getElementById('fullName');
+    const lastNameInput = document.getElementById('telephone');
     const emailInput = document.getElementById('email');
 
     // Function to toggle the display of the newsletter checkbox
@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validate first name
         if (!firstNameInput.value.trim()) {
-            document.querySelector('#firstName ~ .invalid-feedback').style.display = 'block';
+            document.querySelector('#fullName ~ .invalid-feedback').style.display = 'block';
             firstNameInput.classList.add('is-invalid');
             isValid = false;
         }
 
         // Validate last name
         if (!lastNameInput.value.trim()) {
-            document.querySelector('#lastName ~ .invalid-feedback').style.display = 'block';
+            document.querySelector('#telephone ~ .invalid-feedback').style.display = 'block';
             lastNameInput.classList.add('is-invalid');
             isValid = false;
         }
