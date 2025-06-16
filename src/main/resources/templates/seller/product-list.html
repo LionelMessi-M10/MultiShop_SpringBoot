@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/admin/layout/header :: header(title='Product Manager')"></head>
+<head
+	th:replace="/admin/layout/header :: header(title='Product Manager')"></head>
 
 <body>
 	<div class="wrapper">
@@ -23,19 +24,20 @@
 
 			<div class="container">
 				<div class="page-inner">
-					<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+					<div
+						class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
 						<div>
 							<h1 class="fw-bold mb-3">Product manager</h1>
 						</div>
 						<div class="ms-md-auto py-2 py-md-0">
 							<!-- Export Button with Icon -->
-							<a href="#" class="btn btn-success btn-round me-2">
-								<i class="fa fa-plus"></i> Add Product
-							</a>
+							<button class="btn btn-success btn-round me-2" data-bs-toggle="modal" data-bs-target="#productModal"> <i
+								class="fa fa-plus"></i> Add Product
+							</button>
 
 							<!-- Import Button with Icon -->
-							<a href="#" class="btn btn-warning btn-round">
-								<i class="fa fa-upload"></i> Export
+							<a href="#" class="btn btn-warning btn-round"> <i
+								class="fa fa-upload"></i> Export
 							</a>
 						</div>
 
@@ -49,25 +51,29 @@
 											class="dataTables_wrapper container-fluid dt-bootstrap4">
 											<div class="row">
 												<div class="col-sm-12 col-md-6">
-													<div class="dataTables_length" id="multi-filter-select_length">
-														<label>Show <select name="multi-filter-select_length"
-																aria-controls="multi-filter-select"
-																class="form-control form-control-sm"
-																fdprocessedid="sap38">
+													<div class="dataTables_length"
+														id="multi-filter-select_length">
+														<label>Show <select
+															name="multi-filter-select_length"
+															aria-controls="multi-filter-select"
+															class="form-control form-control-sm"
+															fdprocessedid="sap38">
 																<option value="10">10</option>
 																<option value="25">25</option>
 																<option value="50">50</option>
 																<option value="100">100</option>
-															</select> entries</label>
+														</select> entries
+														</label>
 													</div>
 												</div>
 												<div class="col-sm-12 col-md-6">
-													<div id="multi-filter-select_filter" class="dataTables_filter">
-														<label>
-															<select class="form-select" fdprocessedid="7x061q">
+													<div id="multi-filter-select_filter"
+														class="dataTables_filter">
+														<label> <select class="form-select"
+															fdprocessedid="7x061q">
 																<option value="Zorita Serrano">Active</option>
 																<option value="Zorita Serrano">Un Active</option>
-															</select>
+														</select>
 														</label>
 													</div>
 												</div>
@@ -90,23 +96,21 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr role="row" class="odd">
-																<td class="sorting_1">Angelica Ramos</td>
-																<td>Chief Executive Officer (CEO)</td>
-																<td>London</td>
-																<td>47</td>
-																<td>2009/10/09</td>
-																<td>$1,200,000</td>
-																<td>$1,200,000</td>
+															<tr th:each="product : ${products}" role="row" class="odd">
+																<td class="sorting_1" th:text="${product.name}">Product Name</td>
+																<td th:text="${product.salePrice}">Sale Price</td>
+																<td th:text="${product.saleQuantity}">Sale Quantity</td>
+																<td th:text="${product.stock}">Inventory Quantity</td>
+																<td th:text="${#dates.format(product.createdDate, 'yyyy-MM-dd')}">Created Date</td>
+																<td th:text="${#dates.format(product.modifiedDate, 'yyyy-MM-dd')}">Modified Date</td>
+																<td th:text="${product.status}">Status</td>
 																<td>
 																	<div class="form-button-action">
 																		<a href="" class="btn btn-link btn-secondary btn-lg">
 																			<i class="fa fa-eye"></i>
-																		</a>
-																		<a href="" class="btn btn-link btn-primary btn-lg">
+																		</a> <a href="" class="btn btn-link btn-primary btn-lg">
 																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a href="" class="btn btn-link btn-danger btn-lg">
+																		</a> <a href="" class="btn btn-link btn-danger btn-lg">
 																			<i class="fa fa-times"></i>
 																		</a>
 																	</div>
@@ -123,21 +127,21 @@
 														<ul class="pagination">
 															<li class="paginate_button page-item previous disabled"
 																id="multi-filter-select_previous"><a href="#"
-																	aria-controls="multi-filter-select" data-dt-idx="0"
-																	tabindex="0" class="page-link">Previous</a></li>
-															<li class="paginate_button page-item active"><a href="#"
-																	aria-controls="multi-filter-select" data-dt-idx="1"
-																	tabindex="0" class="page-link">1</a></li>
+																aria-controls="multi-filter-select" data-dt-idx="0"
+																tabindex="0" class="page-link">Previous</a></li>
+															<li class="paginate_button page-item active"><a
+																href="#" aria-controls="multi-filter-select"
+																data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
 															<li class="paginate_button page-item "><a href="#"
-																	aria-controls="multi-filter-select" data-dt-idx="2"
-																	tabindex="0" class="page-link">2</a></li>
+																aria-controls="multi-filter-select" data-dt-idx="2"
+																tabindex="0" class="page-link">2</a></li>
 															<li class="paginate_button page-item "><a href="#"
-																	aria-controls="multi-filter-select" data-dt-idx="3"
-																	tabindex="0" class="page-link">3</a></li>
+																aria-controls="multi-filter-select" data-dt-idx="3"
+																tabindex="0" class="page-link">3</a></li>
 															<li class="paginate_button page-item next"
 																id="multi-filter-select_next"><a href="#"
-																	aria-controls="multi-filter-select" data-dt-idx="4"
-																	tabindex="0" class="page-link">Next</a></li>
+																aria-controls="multi-filter-select" data-dt-idx="4"
+																tabindex="0" class="page-link">Next</a></li>
 														</ul>
 													</div>
 												</div>
@@ -156,6 +160,36 @@
 		<div th:replace="/admin/layout/custom-template :: custom-template"></div>
 		<!-- End Custom template -->
 	</div>
+
+	<!-- Popup -->
+	<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <form th:action="@{/save}" method="post" th:object="${product}">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h5 class="modal-title" th:text="${editMode} ? 'Sửa sản phẩm' : 'Thêm sản phẩm'"></h5>
+	          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	        </div>
+	        <div class="modal-body">
+	          <input type="hidden" th:field="*{id}" />
+	          <div class="mb-3">
+	            <label class="form-label">Tên sản phẩm</label>
+	            <input type="text" class="form-control" th:field="*{name}" required>
+	          </div>
+	          <div class="mb-3">
+	            <label class="form-label">Giá</label>
+	            <input type="number" class="form-control" th:field="*{price}" step="0.01" required>
+	          </div>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="submit" class="btn btn-primary">Lưu</button>
+	          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+	        </div>
+	      </div>
+	    </form>
+	  </div>
+	</div>
+
 	<!--   Core JS Files   -->
 	<script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
 	<script src="/dashboard/js/core/popper.min.js"></script>
@@ -164,7 +198,7 @@
 	<!-- Kaiadmin DEMO methods, don't include it in your project! -->
 	<script src="/dashboard/js/setting-demo.js"></script>
 	<script src="/dashboard/js/demo.js"></script>
-	
+
 </body>
 
 </html>

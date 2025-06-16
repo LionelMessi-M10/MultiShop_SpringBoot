@@ -27,8 +27,14 @@ public class Product extends Base {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "price")
-	private Double price;
+	@Column(name = "origin_price")
+	private Double originPrice;
+	
+	@Column(name = "sale_price")
+	private Double salePrice;
+	
+	@Column(name = "sale_quantity")
+	private Long saleQuantity;
 	
 	@Column(name = "discount")
 	private Float discount;
