@@ -1,7 +1,5 @@
 package com.multishop.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -16,7 +14,7 @@ import lombok.Setter;
 public class Shipping extends Base {
     @OneToOne
     @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    private Order order;
 
     private String shipCode;
     private String provider;

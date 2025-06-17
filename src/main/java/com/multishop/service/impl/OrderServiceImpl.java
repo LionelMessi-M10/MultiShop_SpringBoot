@@ -3,7 +3,7 @@ package com.multishop.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.multishop.entity.OrderEntity;
+import com.multishop.entity.Order;
 import com.multishop.repository.OrderRepository;
 import com.multishop.service.EmailService;
 import com.multishop.service.OrderService;
@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepository orderRepository;
 
 	@Override
-	public void placeOrder(OrderEntity order) throws MessagingException {
+	public void placeOrder(Order order) throws MessagingException {
 	    // Lưu đơn hàng
 	    orderRepository.save(order);
 

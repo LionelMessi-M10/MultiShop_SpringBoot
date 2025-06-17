@@ -52,5 +52,7 @@ public class Product extends Base {
     @OneToMany(mappedBy = "product")
     private List<ProductAttributeValue> attributeValues;
 	
-	
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+	private Shop shop;
 }

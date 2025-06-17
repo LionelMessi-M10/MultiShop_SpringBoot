@@ -16,7 +16,7 @@ import lombok.Setter;
 public class OrderDetail extends Base {
     @ManyToOne 
     @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

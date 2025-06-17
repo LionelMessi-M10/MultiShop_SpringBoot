@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Payment extends Base {
     @OneToOne
     @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    private Order order;
 
     private String method; // vnpay, momo,...
     private String statusPayment;

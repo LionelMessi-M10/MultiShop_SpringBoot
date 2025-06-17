@@ -15,7 +15,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
-import com.multishop.entity.OrderEntity;
+import com.multishop.entity.Order;
 import com.multishop.service.InvoicePdfService;
 
 import jakarta.mail.internet.MimeMessage;
@@ -30,7 +30,7 @@ public class InvoicePdfServiceImpl implements InvoicePdfService {
     private TemplateEngine templateEngine;
 
 	@Override
-	public File generateInvoicePdf(OrderEntity order) throws Exception {
+	public File generateInvoicePdf(Order order) throws Exception {
 		String filename = "invoice_" + order.getId() + ".pdf";
         File file = new File(System.getProperty("java.io.tmpdir"), filename);
 
@@ -50,7 +50,7 @@ public class InvoicePdfServiceImpl implements InvoicePdfService {
 	}
 
 	@Override
-	public void sendOrderEmailWithPdf(OrderEntity order, File pdfInvoice) throws Exception {
+	public void sendOrderEmailWithPdf(Order order, File pdfInvoice) throws Exception {
 		MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 

@@ -1,8 +1,12 @@
 package com.multishop.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -31,5 +35,8 @@ public class Shop extends Base {
 	@OneToOne
 	@JoinColumn(name = "seller_id")
 	private User user;
+	
+	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+	private List<Product> products;
 	
 }

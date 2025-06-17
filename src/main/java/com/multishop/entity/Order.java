@@ -2,6 +2,7 @@ package com.multishop.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "orders")
-public class OrderEntity extends Base {
+public class Order extends Base {
     @ManyToOne 
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,6 +29,9 @@ public class OrderEntity extends Base {
 
     @OneToMany(mappedBy = "order")
     private List<OrderStatusLog> statusLogs;
+    
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Transaction> transactions;
 
     private String statusOrder;
     private Double totalPrice;
