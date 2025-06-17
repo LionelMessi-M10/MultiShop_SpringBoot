@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter 
 @Setter
 public class ProductAttributeValue {
+	
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +24,8 @@ public class ProductAttributeValue {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne @JoinColumn(name = "attribute_id")
+    @ManyToOne
+    @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
     private String value;

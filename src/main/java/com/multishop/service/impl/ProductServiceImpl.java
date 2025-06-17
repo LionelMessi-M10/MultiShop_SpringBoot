@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multishop.converter.ProductConverter;
+import com.multishop.entity.Product;
+import com.multishop.model.dto.ProductDTO;
 import com.multishop.model.response.ProductReponse;
 import com.multishop.repository.ProductRepository;
 import com.multishop.service.ProductService;
@@ -27,6 +29,13 @@ public class ProductServiceImpl implements ProductService {
 				.map(item -> productConverter.convertEntityToReponse(item)).collect(Collectors.toList());
 
 		return res;
+	}
+
+	@Override
+	public ProductDTO getProductById(Long id) {
+		Product product = productRepository.findById(id).orElse(null);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

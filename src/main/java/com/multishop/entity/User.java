@@ -41,4 +41,7 @@ public class User extends Base {
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<Role> roles = new ArrayList<>();
+    
+    @OneToOne(mappedBy = "user")
+    private Shop shop;
 }

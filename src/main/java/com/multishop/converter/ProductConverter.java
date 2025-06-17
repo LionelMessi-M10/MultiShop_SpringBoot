@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.multishop.entity.Product;
+import com.multishop.model.dto.ProductDTO;
 import com.multishop.model.response.ProductReponse;
 
 @Configuration
@@ -30,4 +31,11 @@ public class ProductConverter {
 		
 		return productReponse;
 	}
+	
+	public ProductDTO convertEntityToDto(Product product) {
+		ProductDTO productDTO = new ProductDTO();
+		
+		return productDTO;
+	}
+	
 }
