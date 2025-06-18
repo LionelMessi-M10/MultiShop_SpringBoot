@@ -21,15 +21,28 @@ public class Shipping extends Base {
     @JoinColumn(name = "order_id")
     private Order order;
     
+    @Column(name = "address")
     private String address; // Dia chi giao hang
+    
+    @Column(name = "city")
     private String city; // thanh pho
+    
+    @Column(name = "state")
     private String state; // bang hoac khu vuc
+    
+    @Column(name = "postal_code")
     private String postalCode; // ma buu dien
+    
+    @Column(name = "country")
     private String country; // quoc gia
+    
     @Column(name = "shipping_method")
 	@Enumerated(EnumType.STRING)
     private Enum<ShippingMethod> shippingMethods; // phuong thuc van chuyen
 
+    @Column(name = "provider")
     private String provider;
+    
+    @Column(name = "fee", nullable = false)
     private Double fee;
 }

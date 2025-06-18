@@ -1,5 +1,6 @@
 package com.multishop.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +17,13 @@ import lombok.Setter;
 @Setter
 public class Ward extends Base {
 
-    private String name;
+	@Column(name = "ward_code")
+	private Integer wardCode;
+	
+	@Column(name = "ward_name")
+    private String wardName;
 
-    @ManyToOne
-    @JoinColumn(name = "district_id")
-    private District district;
+    @Column(name = "district_id")
+    private Integer districtId;
 }
 

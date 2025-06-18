@@ -2,9 +2,13 @@ package com.multishop.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -42,9 +46,13 @@ public class Product extends Base {
 	@Column(name = "stock")
 	private Integer stock;
 	
-	@ManyToOne 
-	@JoinColumn(name = "category_id")
-    private Category category;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@JoinTable(
+			name = "product_category",
+			joinColumns = {@JoinColumn(name = "product_id")},
+			inverseJoinColumns = {@JoinColumn(name = "category_id")}
+	)
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> images;

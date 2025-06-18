@@ -35,7 +35,6 @@ public class User extends Base {
     @Column(name = "enabled")
     private Integer enabled = 1;
 
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),

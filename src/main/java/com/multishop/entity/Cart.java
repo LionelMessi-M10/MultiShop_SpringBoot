@@ -2,6 +2,7 @@ package com.multishop.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -16,8 +17,12 @@ import lombok.Setter;
 @Setter
 public class Cart extends Base {
 	
-    @OneToOne @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    
+    @Column(name = "total_price")
+    private Double totalPrice;
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> items;

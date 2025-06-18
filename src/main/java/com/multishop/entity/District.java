@@ -1,11 +1,7 @@
 package com.multishop.entity;
 
-import java.util.List;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,14 +11,15 @@ import lombok.Setter;
 @Getter 
 @Setter
 public class District extends Base {
+	
+	@Column(name = "district_id")
+	private Integer districtId;
 
-    private String name;
+	@Column(name = "district_name")
+    private String districtName;
 
-    @ManyToOne
-    @JoinColumn(name = "province_id")
-    private Province province;
+    @Column(name = "province_id")
+    private Integer provinceId;
 
-    @OneToMany(mappedBy = "district")
-    private List<Ward> wards;
 }
 

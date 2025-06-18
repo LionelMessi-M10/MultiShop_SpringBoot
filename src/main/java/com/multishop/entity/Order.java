@@ -3,6 +3,7 @@ package com.multishop.entity;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -33,6 +34,9 @@ public class Order extends Base {
     @OneToMany(mappedBy = "order", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Transaction> transactions;
 
-    private String statusOrder;
+    @Column(name = "total_price")
     private Double totalPrice;
+    
+    @Column(name = "ship_fee")
+    private Float shipFee;
 }

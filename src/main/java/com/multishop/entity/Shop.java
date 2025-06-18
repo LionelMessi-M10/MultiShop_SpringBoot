@@ -32,6 +32,9 @@ public class Shop extends Base {
 	@Column(name = "shop_desc")
 	private String shopDesc;
 	
+	@Column(name = "logo")
+	private String logo;
+	
 	@OneToOne
 	@JoinColumn(name = "seller_id")
 	private User user;
