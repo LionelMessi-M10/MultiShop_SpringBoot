@@ -15,5 +15,5 @@ import lombok.Setter;
 @Table(name = "notifications")
 public class Notification extends Base {
 
-	
+	private String message;
 }
