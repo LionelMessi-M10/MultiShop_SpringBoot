@@ -1,6 +1,7 @@
 package com.multishop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends Base {
 
+	@NotNull
     @Column(name = "code", length = 50, nullable = false, unique = true)
     private String code;
 
