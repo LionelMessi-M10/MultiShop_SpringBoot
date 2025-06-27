@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "wards")
 @Getter 
 @Setter
-public class Ward extends Base {
+public class Ward extends Base { // Phường, xã
 
 	@Column(name = "ward_code")
 	private Integer wardCode;
@@ -23,7 +23,8 @@ public class Ward extends Base {
 	@Column(name = "ward_name")
     private String wardName;
 
-    @Column(name = "district_id")
-    private Integer districtId;
+    @ManyToOne
+    @JoinColumn(name = "district_id")
+    private District district;
 }
 

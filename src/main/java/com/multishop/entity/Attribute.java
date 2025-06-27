@@ -1,6 +1,11 @@
 package com.multishop.entity;
 
+import com.multishop.enums.ProductAttributeType;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,5 +23,10 @@ public class Attribute {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "name")
+    private String name; // Màu sắc, kích thước, chất liệu, ...
+    
+    @Column(name = "product_attribute_value")
+    @Enumerated(EnumType.STRING)
+    private Enum<ProductAttributeType> productAttribute;
 }

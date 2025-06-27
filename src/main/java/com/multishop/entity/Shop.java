@@ -2,9 +2,13 @@ package com.multishop.entity;
 
 import java.util.List;
 
+import com.multishop.enums.ActiveStatus;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -34,6 +38,16 @@ public class Shop extends Base {
 	
 	@Column(name = "logo")
 	private String logo;
+	
+	@Column(name = "cover_image")
+	private String coverImage; // Ảnh bìa cửa hàng
+	
+	@Column(name = "action")
+	@Enumerated(EnumType.STRING)
+	private Enum<ActiveStatus> action; // trạng thái hoạt động của cửa hàng
+	
+	@Column(name = "rating")
+	private Float rating;
 	
 	@OneToOne
 	@JoinColumn(name = "seller_id")
