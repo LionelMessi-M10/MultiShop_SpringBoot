@@ -59,4 +59,7 @@ public class User extends Base {
     
     @OneToOne(mappedBy = "user")
     private Shop shop;
+    
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Order> orders;
 }

@@ -2,12 +2,14 @@ package com.multishop.entity;
 
 import com.multishop.enums.AddressType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,5 +55,8 @@ public class Address extends Base {
     @ManyToOne
     @JoinColumn(name = "ward_id")
     private Ward ward;
+    
+    @OneToOne(mappedBy = "address", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Order order;
 }
 

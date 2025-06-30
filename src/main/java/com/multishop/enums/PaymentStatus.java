@@ -1,6 +1,6 @@
 package com.multishop.enums;
 
-public enum OrderStatus {
+public enum PaymentStatus {
     PENDING,
     PROCESSING,
     SHIPPED,

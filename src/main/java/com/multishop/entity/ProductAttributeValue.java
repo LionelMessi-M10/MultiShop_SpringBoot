@@ -1,5 +1,6 @@
 package com.multishop.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,5 +29,6 @@ public class ProductAttributeValue {
     @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
-    private String value;
+    @Column(name = "value", nullable = false)
+    private String value; // Đỏ, XL, Cotton
 }

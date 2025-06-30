@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 	    String content = "<h2>🛒 Cảm ơn bạn đã đặt hàng tại <strong>MultiShop</strong>!</h2>"
 	            + "<p><strong>Mã đơn hàng:</strong> #" + order.getId() + "</p>"
 	            + "<p><strong>Ngày đặt:</strong> " + order.getCreatedDate() + "</p>"
-	            + "<p><strong>Tổng tiền:</strong> " + order.getTotalPrice() + " VND</p>"
+	            + "<p><strong>Tổng tiền:</strong> " + order.getFinalAmount() + " VND</p>"
 	            + "<hr/>"
 	            + "<p>Chúng tôi sẽ xử lý đơn hàng và giao đến bạn trong thời gian sớm nhất.</p>"
 	            + "<p>Trân trọng,</p>"

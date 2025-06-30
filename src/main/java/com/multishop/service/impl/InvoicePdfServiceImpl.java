@@ -42,7 +42,7 @@ public class InvoicePdfServiceImpl implements InvoicePdfService {
         document.add(new Paragraph("Mã đơn hàng: " + order.getId()));
         document.add(new Paragraph("Ngày đặt: " + order.getCreatedDate()));
         document.add(new Paragraph("Khách hàng: " + order.getUser().getFullName()));
-        document.add(new Paragraph("Tổng tiền: " + order.getTotalPrice() + " VND"));
+        document.add(new Paragraph("Tổng tiền: " + order.getFinalAmount() + " VND"));
         document.add(new Paragraph("Cảm ơn bạn đã mua hàng tại MultiShop!"));
 
         document.close();
@@ -61,7 +61,7 @@ public class InvoicePdfServiceImpl implements InvoicePdfService {
         Context context = new Context();
         context.setVariable("orderId", order.getId());
         context.setVariable("orderDate", order.getCreatedDate());
-        context.setVariable("total", order.getTotalPrice());
+        context.setVariable("total", order.getFinalAmount());
 
         String htmlContent = templateEngine.process("web/invoice", context);
         helper.setText(htmlContent, true);

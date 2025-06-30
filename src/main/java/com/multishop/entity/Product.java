@@ -81,11 +81,11 @@ public class Product extends Base {
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
-    private Category categories;
+    private Category categories; // Loại sản phẩm cha
 	
 	@ManyToOne
 	@JoinColumn(name = "sub_category_id", nullable = true)
-	private SubCategory subCategory;
+	private SubCategory subCategory; // Loại sản phẩm con
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> images;
