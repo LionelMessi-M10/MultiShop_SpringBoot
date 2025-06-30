@@ -1,21 +1,34 @@
 package com.multishop.entity;
 
+import com.multishop.enums.OrderStatus;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "order_status_logs")
 @Getter
 @Setter
+@Entity
+@Table(name = "order_status_logs")
 public class OrderStatusLog extends Base {
+
+    @Lob
+    @Column(name = "note", columnDefinition = "TEXT")
+    private String note;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private Enum<OrderStatus> orderStatus;
+    
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    private String statusLog;
-    private String note;
+    
 }

@@ -56,7 +56,7 @@ public class Shop extends Base {
 	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
 	private List<Product> products;
 	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+	@OneToMany(mappedBy = "shop")
     private List<Order> orders;
 	
 }

@@ -2,9 +2,16 @@ package com.multishop.entity;
 
 import java.util.List;
 
+import com.multishop.enums.OrderStatus;
+import com.multishop.enums.PaymentMethod;
+import com.multishop.enums.PaymentStatus;
+import com.multishop.enums.ShippingMethod;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -34,6 +41,28 @@ public class Order extends Base {
 	
     @Column(name = "final_amount", nullable = false)
     private Double finalAmount;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private Enum<OrderStatus> orderStatus; // Trạng thái đơn hàng: quy trình đặt, xử lý, giao hàng, huỷ đơn
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method")
+    private Enum<PaymentMethod> paymentMethod; // Trạng thái của thanh toán: quá trình người mua trả tiền (Lúc người dùng đặt hàng)
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
+    private Enum<PaymentStatus> paymentStatus; // Kết quả thanh toán của đơn hàng (Sau khi thanh toán hoằn tất hoặc thất bại)
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shipping_method")
+    private Enum<ShippingMethod> shippingMethod; // Cách đơn hàng được vận chuyển tới tay khách
+    
+    @Column(name = "tracking_no", length = 100)
+    private String trackingNo; // Mã vận đơn
+    
+    @Column(name = "note", length = 500)
+    private String note; // Ghi chú từ khách hàng
     
     @ManyToOne 
     @JoinColumn(name = "user_id")

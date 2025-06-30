@@ -1,7 +1,6 @@
 package com.multishop.entity;
 
-import java.math.BigDecimal;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +13,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderDetail extends Base {
+
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+    
+    @Column(name = "unit_price", nullable = false)
+    private Double unitPrice; // Giá tại thời điểm đặt hàng
+    
+    @Column(name = "sub_total", nullable = false)
+    private Double subTotal; // = quantity * unitPrice
+    
     @ManyToOne 
     @JoinColumn(name = "order_id")
     private Order order;
@@ -21,7 +30,5 @@ public class OrderDetail extends Base {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    private int quantity;
-    private BigDecimal priceAtOrder;
+    
 }

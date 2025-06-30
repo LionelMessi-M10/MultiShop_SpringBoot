@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -34,7 +35,8 @@ public class Product extends Base {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "description")
+	@Lob
+	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 	
 	@Column(name = "origin_price")
