@@ -14,7 +14,8 @@ import lombok.Setter;
 @Getter 
 @Setter
 public class CouponUser extends Base {
-    @ManyToOne
+    
+	@ManyToOne
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 

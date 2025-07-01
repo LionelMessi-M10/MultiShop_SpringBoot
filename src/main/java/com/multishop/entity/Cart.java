@@ -8,22 +8,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "carts")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter 
 @Setter
+@Entity
+@Table(name = "carts")
 public class Cart extends Base {
 	
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-    
-    @Column(name = "total_price")
-    private Double totalPrice;
 
     @OneToMany(mappedBy = "cart")
-    private List<CartItem> items;
+    private List<CartItem> cartItems;
 }

@@ -23,15 +23,15 @@ public class Payment extends Base {
 	@Column(name = "transaction_id", unique = true)
 	private String transactionId; // Mã giao dịch thanh toán, nếu có
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "payment_method", nullable = false)
-	private Enum<PaymentMethod> paymentMethod;
-	
 	@Column(name = "amount", nullable = false)
 	private Double amount;
 	
 	@Column(name = "currency", length = 10)
 	private String currency;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "payment_method", nullable = false)
+	private Enum<PaymentMethod> paymentMethod;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "paymentStatus", nullable = false)

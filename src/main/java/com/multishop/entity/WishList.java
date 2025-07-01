@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +15,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "wish_lists")
+@Table(name = "wishlists", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"user_id", "product_id"})
+})
 public class WishList extends Base {
-
-	private Long quantity;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name = "product_id")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
 	
 }
