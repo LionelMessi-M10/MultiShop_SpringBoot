@@ -1,0 +1,57 @@
+package com.multishop.entity;
+
+import java.time.LocalDateTime;
+
+import com.multishop.enums.ReturnOrderStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "return_orders")
+public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
+
+	@ManyToOne
+	@JoinColumn(name = "order_id", nullable = false)
+	private Order order;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
+	@Lob
+	@Column(name = "return_reason", columnDefinition = "TEXT")
+	private String returnReason; // Lý do trả hàng, hoàn tiền
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "return_status")
+	private Enum<ReturnOrderStatus> returnStatus; // Trạng thái yêu cầu
+	
+	@Column(name = "refund_amount")
+	private Double refundAmount; // NULL nếu chưa toàn tiền
+	
+	@Column(name = "return_date")
+	private LocalDateTime returnDate; // Ngày trả hàng
+	
+	@Column(name = "approved_rejected_at")
+	private LocalDateTime approvedRejectedAt; // Ngày xử lý yêu cầu
+	
+	@ManyToOne
+	@JoinColumn(name = "shop_id", nullable = false)
+	private Shop shop;
+	
+}
