@@ -1,6 +1,14 @@
 package com.multishop.entity;
 
+import com.multishop.enums.NotificationType;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,5 +23,28 @@ import lombok.Setter;
 @Table(name = "notifications")
 public class Notification extends Base {
 
-	private String message;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user; // nếu có thông báo cho user cụ thể
+	
+	@ManyToOne
+	@JoinColumn(name = "shop_id")
+	private Shop shop; // nếu có thông báo cho shop cụ thể
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "notification_type")
+	private Enum<NotificationType> notificationType; // loại thông báo
+	
+	@Column(name = "title")
+	private String title; // Tiêu đề thông báo
+	
+	@Lob
+	@Column(name = "message", columnDefinition = "TEXT")
+	private String message; // Nội dung thông báo
+	
+	@Column(name = "link_url")
+	private String linkUrl; // URL khi click váo thông báo
+	
+	@Column(name = "is_read")
+	private Boolean isRead;
 }

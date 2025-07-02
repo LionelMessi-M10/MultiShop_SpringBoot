@@ -2,26 +2,35 @@ package com.multishop.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "coupon_users")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter 
 @Setter
-public class CouponUser extends Base {
+@Entity
+@Table(name = "user_coupons")
+public class CouponUser extends Base { // Coupon của người dùng
     
 	@ManyToOne
-    @JoinColumn(name = "coupon_id")
+    @JoinColumn(name = "coupon_id", nullable = false)
     private Coupon coupon;
 
     @ManyToOne 
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    
+    @Column(name = "is_used")
+    private Boolean isUsed; // check có sử dụng hay không
 
-    private LocalDateTime usedAt;
+    @Column(name = "used_at")
+    private LocalDateTime usedAt; // null nếu chưa sử dụng
 }

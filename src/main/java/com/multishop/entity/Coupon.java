@@ -3,6 +3,7 @@ package com.multishop.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.multishop.enums.CouponApply;
 import com.multishop.enums.DiscountType;
 
 import jakarta.persistence.Column;
@@ -51,7 +52,14 @@ public class Coupon extends Base {
 	
 	@Column(name = "end_date")
     private LocalDateTime endDate;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "coupon_apply")
+	private Enum<CouponApply> couponApply; // Phạm vi áp dụng coupon
 
+	@Column(name = "applies_to_id")
+	private Long appliesToId; // Id áp dụng, có thể là category_id / shop_id / product_id 
+	
     @OneToMany(mappedBy = "coupon")
     private List<CouponUser> usages;
 }
