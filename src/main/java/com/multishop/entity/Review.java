@@ -1,10 +1,14 @@
 package com.multishop.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,10 +26,6 @@ public class Review extends Base {
 	@ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
-	
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Order order;
 
 	@Column(name = "rating")
     private Integer rating;
@@ -49,6 +49,9 @@ public class Review extends Base {
 	
 	@Column(name = "unhelpful_votes")
 	private Integer unhelpfulVotes; // so luong vote xau 
+	
+	@OneToMany(mappedBy = "review", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+	private List<ReviewReplie> reviewReplies;
 	
 }
 

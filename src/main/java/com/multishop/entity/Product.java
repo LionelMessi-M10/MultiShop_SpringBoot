@@ -89,13 +89,19 @@ public class Product extends Base {
 	@JoinColumn(name = "sub_category_id", nullable = true)
 	private SubCategory subCategory; // Loại sản phẩm con
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<ProductImage> images;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<ProductAttributeValue> attributeValues;
 	
     @ManyToOne
     @JoinColumn(name = "shop_id")
 	private Shop shop;
+    
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Review> reviews;
+    
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<WishList> wishLists;
 }

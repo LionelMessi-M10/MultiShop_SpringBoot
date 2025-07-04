@@ -1,9 +1,11 @@
 package com.multishop.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.multishop.enums.ReturnOrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,8 +53,7 @@ public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
 	@Column(name = "approved_rejected_at")
 	private LocalDateTime approvedRejectedAt; // Ngày xử lý yêu cầu
 	
-	@ManyToOne
-	@JoinColumn(name = "shop_id", nullable = false)
-	private Shop shop;
+	@OneToMany(mappedBy = "returnOrder", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+	private List<ReturnOrder> returnOrders;
 	
 }

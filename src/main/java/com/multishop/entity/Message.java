@@ -33,6 +33,10 @@ public class Message extends Base {
 	@JoinColumn(name = "shop_id")
 	private Shop shop;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	@Lob
 	@Column(name = "content", columnDefinition = "TEXT")
 	private String content;

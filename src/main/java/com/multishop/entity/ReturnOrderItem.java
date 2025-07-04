@@ -23,7 +23,7 @@ public class ReturnOrderItem extends Base {
 	@JoinColumn(name = "return_order_id", nullable = false)
 	private ReturnOrder returnOrder;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "order_detail_id", nullable = false)
 	private OrderDetail orderDetail;
 	
