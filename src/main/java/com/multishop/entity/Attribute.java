@@ -28,5 +28,5 @@ public class Attribute {
     
     @Column(name = "product_attribute_value")
     @Enumerated(EnumType.STRING)
-    private Enum<ProductAttributeType> productAttribute;
+    private ProductAttributeType productAttribute;
 }

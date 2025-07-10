@@ -25,7 +25,7 @@ public class OrderStatusLog extends Base {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
-    private Enum<OrderStatus> orderStatus;
+    private OrderStatus orderStatus;
     
     @ManyToOne
     @JoinColumn(name = "order_id")

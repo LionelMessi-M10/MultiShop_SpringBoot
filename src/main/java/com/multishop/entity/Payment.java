@@ -31,11 +31,11 @@ public class Payment extends Base {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "payment_method", nullable = false)
-	private Enum<PaymentMethod> paymentMethod;
+	private PaymentMethod paymentMethod;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "paymentStatus", nullable = false)
-	private Enum<PaymentStatus> paymentStatus;
+	private PaymentStatus paymentStatus;
 	
 	@Lob
 	@Column(name = "bank_response", columnDefinition = "TEXT")

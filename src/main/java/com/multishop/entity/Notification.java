@@ -33,7 +33,7 @@ public class Notification extends Base {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "notification_type")
-	private Enum<NotificationType> notificationType; // loại thông báo
+	private NotificationType notificationType; // loại thông báo
 	
 	@Column(name = "title")
 	private String title; // Tiêu đề thông báo

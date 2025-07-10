@@ -38,7 +38,7 @@ public class Address extends Base {
 	
 	@Column(name = "address_type")
 	@Enumerated(EnumType.STRING)
-	private Enum<AddressType> addressType;
+	private AddressType addressType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

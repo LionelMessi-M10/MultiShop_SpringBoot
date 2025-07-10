@@ -30,14 +30,14 @@ public class WalletTransaction extends Base { // Giao dịch ví
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private Enum<WalletTransactionType> type; // Loại giao dịch ví
+	private WalletTransactionType type; // Loại giao dịch ví
 	
 	@Column(name = "amount")
 	private Double amount;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "wallet_transaction_status")
-	private Enum<WalletTransactionStatus> walletTransactionStatus;
+	private WalletTransactionStatus walletTransactionStatus;
 
 	@Column(name = "reference_id")
 	private Long referentceId; // Tham chiếu đến Order ID, Payment ID, ...

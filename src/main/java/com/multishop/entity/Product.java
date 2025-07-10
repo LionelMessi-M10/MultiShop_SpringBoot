@@ -9,11 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -70,7 +67,7 @@ public class Product extends Base {
 	
 	@Column(name = "product_status")
 	@Enumerated(EnumType.STRING)
-	private Enum<ProductStatus> productStatus; // Trình trạng sản phẩm
+	private ProductStatus productStatus; // Trình trạng sản phẩm
 	
 	@Column(name = "is_feature")
 	private Boolean isFeature; // Có phải là sản phẩm nổi bật

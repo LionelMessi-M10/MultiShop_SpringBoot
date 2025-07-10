@@ -44,7 +44,7 @@ public class Shop extends Base {
 	
 	@Column(name = "action")
 	@Enumerated(EnumType.STRING)
-	private Enum<ActiveStatus> action; // trạng thái hoạt động của cửa hàng
+	private ActiveStatus action; // trạng thái hoạt động của cửa hàng
 	
 	@Column(name = "rating")
 	private Float rating;

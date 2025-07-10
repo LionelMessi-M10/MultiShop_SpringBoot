@@ -42,7 +42,7 @@ public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "return_status")
-	private Enum<ReturnOrderStatus> returnStatus; // Trạng thái yêu cầu
+	private ReturnOrderStatus returnStatus; // Trạng thái yêu cầu
 	
 	@Column(name = "refund_amount")
 	private Double refundAmount; // NULL nếu chưa toàn tiền
@@ -54,6 +54,6 @@ public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
 	private LocalDateTime approvedRejectedAt; // Ngày xử lý yêu cầu
 	
 	@OneToMany(mappedBy = "returnOrder", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<ReturnOrder> returnOrders;
+	private List<ReturnOrderItem> returnOrderItems;
 	
 }

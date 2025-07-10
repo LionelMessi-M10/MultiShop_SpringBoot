@@ -15,7 +15,6 @@ public class ProductConverter {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Bean
 	public ProductReponse convertEntityToReponse(Product product) {
 		ProductReponse productReponse = modelMapper.map(product, ProductReponse.class);
 		

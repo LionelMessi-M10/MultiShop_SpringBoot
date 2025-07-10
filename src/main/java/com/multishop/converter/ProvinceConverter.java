@@ -16,7 +16,6 @@ public class ProvinceConverter {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Bean
 	public Province convertDTOToEntity(Map<String, Object> item) {		
 		Province entity = new Province();
         entity.setProvinceId((Integer) item.get("ProvinceID"));

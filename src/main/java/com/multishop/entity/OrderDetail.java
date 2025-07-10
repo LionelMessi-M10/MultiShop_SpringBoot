@@ -36,6 +36,6 @@ public class OrderDetail extends Base {
     private Product product;
     
     @OneToMany(mappedBy = "orderDetail", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<ReturnOrder> returnOrders;
+	private List<ReturnOrderItem> returnOrderItems;
     
 }

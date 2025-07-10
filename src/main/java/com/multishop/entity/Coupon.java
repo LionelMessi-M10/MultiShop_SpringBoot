@@ -30,7 +30,7 @@ public class Coupon extends Base {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "discount_type", nullable = false)
-    private Enum<DiscountType> discountType;
+    private DiscountType discountType;
 	
 	@Column(name = "discount_value", nullable = false)
     private Float discountValue; // ví dụ: 10.0 cho 10%, 50000.0 cho 50K
@@ -55,7 +55,7 @@ public class Coupon extends Base {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "coupon_apply")
-	private Enum<CouponApply> couponApply; // Phạm vi áp dụng coupon
+	private CouponApply couponApply; // Phạm vi áp dụng coupon
 
 	@Column(name = "applies_to_id")
 	private Long appliesToId; // Id áp dụng, có thể là category_id / shop_id / product_id 

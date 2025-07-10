@@ -19,9 +19,13 @@ public class Transaction extends Base {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "transaction_type")
-	private Enum<TransactionType> transactionType;
+	private TransactionType transactionType;
 
 	@Column(name = "amount", nullable = false)
 	private Double amount;

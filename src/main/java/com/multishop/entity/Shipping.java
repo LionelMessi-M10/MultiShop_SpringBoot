@@ -42,7 +42,7 @@ public class Shipping extends Base {
     
     @Column(name = "shipping_method")
 	@Enumerated(EnumType.STRING)
-    private Enum<ShippingMethod> shippingMethods; // phuong thuc van chuyen
+    private ShippingMethod shippingMethods; // phuong thuc van chuyen
 
     @Column(name = "provider")
     private String provider;

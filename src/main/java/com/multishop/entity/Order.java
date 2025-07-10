@@ -44,19 +44,19 @@ public class Order extends Base {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
-    private Enum<OrderStatus> orderStatus; // Trạng thái đơn hàng: quy trình đặt, xử lý, giao hàng, huỷ đơn
+    private OrderStatus orderStatus; // Trạng thái đơn hàng: quy trình đặt, xử lý, giao hàng, huỷ đơn
     
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method")
-    private Enum<PaymentMethod> paymentMethod; // Trạng thái của thanh toán: quá trình người mua trả tiền (Lúc người dùng đặt hàng)
+    private PaymentMethod paymentMethod; // Trạng thái của thanh toán: quá trình người mua trả tiền (Lúc người dùng đặt hàng)
     
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
-    private Enum<PaymentStatus> paymentStatus; // Kết quả thanh toán của đơn hàng (Sau khi thanh toán hoằn tất hoặc thất bại)
+    private PaymentStatus paymentStatus; // Kết quả thanh toán của đơn hàng (Sau khi thanh toán hoằn tất hoặc thất bại)
     
     @Enumerated(EnumType.STRING)
     @Column(name = "shipping_method")
-    private Enum<ShippingMethod> shippingMethod; // Cách đơn hàng được vận chuyển tới tay khách
+    private ShippingMethod shippingMethod; // Cách đơn hàng được vận chuyển tới tay khách
     
     @Column(name = "tracking_no", length = 100)
     private String trackingNo; // Mã vận đơn
