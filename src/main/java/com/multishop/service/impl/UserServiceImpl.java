@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.multishop.entity.User;
 import com.multishop.model.dto.UserDTO;
+import com.multishop.model.response.UserResponse;
 import com.multishop.repository.RoleRepository;
 import com.multishop.repository.UserRepository;
 import com.multishop.service.UserService;
@@ -47,6 +48,12 @@ public class UserServiceImpl implements UserService {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String email = authentication.getName();
 	    return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public List<UserResponse> findUsersByStatus(Byte status) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

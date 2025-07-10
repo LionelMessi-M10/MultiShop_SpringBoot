@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.multishop.model.dto.ProductDTO;
 import com.multishop.service.ProductService;
 
-@RestController("/api")
+@RestController("/api/admin")
 public class ProductApi {
 	
 	@Autowired
