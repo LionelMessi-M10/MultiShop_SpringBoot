@@ -1,19 +1,23 @@
 package com.multishop.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.multishop.model.dto.ProductDTO;
 import com.multishop.service.ProductService;
 
-@RestController("/api/admin")
+import lombok.RequiredArgsConstructor;
+
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/admin")
 public class ProductApi {
 	
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
 
 	@GetMapping("/product")
 	public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
