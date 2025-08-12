@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.multishop.entity.User;
 import com.multishop.model.dto.UserDTO;
 import com.multishop.model.response.UserResponse;
-import com.multishop.repository.RoleRepository;
 import com.multishop.repository.UserRepository;
 import com.multishop.service.UserService;
 
@@ -22,9 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder byBCryptPasswordEncoder;
@@ -38,7 +34,7 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(userDTO.getEmail());
         newUser.setPassword(byBCryptPasswordEncoder.encode(userDTO.getPassword()));
         newUser.setGender(userDTO.getGender());
-        // newUser.setRoles(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
+        // newUser.setUserRoleShops(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
 
         userRepository.save(newUser);
     }
