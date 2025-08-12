@@ -1,5 +1,7 @@
 package com.multishop.entity;
 
+import java.math.BigDecimal;
+
 import com.multishop.enums.ShippingMethod;
 
 import jakarta.persistence.Column;
@@ -21,32 +23,33 @@ import lombok.Setter;
 @Entity
 @Table(name = "shippings")
 public class Shipping extends Base {
+
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    
+
     @Column(name = "address")
     private String address; // Dia chi giao hang
-    
+
     @Column(name = "city")
     private String city; // thanh pho
-    
+
     @Column(name = "state")
     private String state; // bang hoac khu vuc
-    
+
     @Column(name = "postal_code")
     private String postalCode; // ma buu dien
-    
+
     @Column(name = "country")
     private String country; // quoc gia
-    
+
     @Column(name = "shipping_method")
-	@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethods; // phuong thuc van chuyen
 
     @Column(name = "provider")
     private String provider;
-    
-    @Column(name = "fee", nullable = false)
-    private Double fee;
+
+    @Column(name = "fee", nullable = false, precision = 10, scale = 2)
+    private BigDecimal fee;
 }

@@ -17,21 +17,21 @@ import lombok.Setter;
 @Entity
 @Table(name = "categories")
 public class Category extends Base {
-	
-	@Column(name = "category_nm")
-	private String categoryName;
-	
-	@Column(name = "image")
-	private String image;
-	
-	@OneToMany(mappedBy = "categories", fetch = FetchType.LAZY)
-	private List<Product> products;
-	
-	@OneToMany(mappedBy = "category")
-	private List<SubCategory> subCategories;
-	
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
-	private Shop shop;
-	
+
+    @Column(name = "category_nm")
+    private String categoryName;
+
+    @Column(name = "image")
+    private String image;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "category")
+    private List<SubCategory> subCategories;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private Shop shop;
+
 }

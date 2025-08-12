@@ -19,46 +19,47 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private BCryptPasswordEncoder byBCryptPasswordEncoder;
 
-	@Transactional
-	@Override
-	public void registerAccount(UserDTO userDTO) {
-		User newUser = new User();
-		
-		newUser.setFullName(userDTO.getFullName().trim());
-		newUser.setEmail(userDTO.getEmail());
-		newUser.setPassword(byBCryptPasswordEncoder.encode(userDTO.getPassword()));
-		newUser.setGender(userDTO.getGender());
-		// newUser.setRoles(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
-		
-		userRepository.save(newUser);
-	}
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public User getCurrentUser() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String email = authentication.getName();
-	    return userRepository.findByEmail(email);
-	}
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Override
-	public List<UserResponse> findUsersByStatus(Byte status) {
-		List<User> users = userRepository.findByStatus(status);
-		if (users != null && !users.isEmpty()) {
-			return users.stream()
-					.map(user -> new UserResponse(user.getId(), user.getFullName(), user.getEmail(), user.getStatus()))
-					.toList();
-		}
-		return null;
-	}
+    @Autowired
+    private BCryptPasswordEncoder byBCryptPasswordEncoder;
+
+    @Transactional
+    @Override
+    public void registerAccount(UserDTO userDTO) {
+        User newUser = new User();
+
+        newUser.setFullName(userDTO.getFullName().trim());
+        newUser.setEmail(userDTO.getEmail());
+        newUser.setPassword(byBCryptPasswordEncoder.encode(userDTO.getPassword()));
+        newUser.setGender(userDTO.getGender());
+        // newUser.setRoles(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
+
+        userRepository.save(newUser);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
+    @Override
+    public List<UserResponse> findUsersByStatus(Byte status) {
+        List<User> users = userRepository.findByStatus(status);
+        if (users != null && !users.isEmpty()) {
+            return users.stream()
+                    .map(user -> new UserResponse(user.getId(), user.getFullName(), user.getEmail(), user.getStatus()))
+                    .toList();
+        }
+        return null;
+    }
 
 }

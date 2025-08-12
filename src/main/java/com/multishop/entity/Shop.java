@@ -1,5 +1,6 @@
 package com.multishop.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.multishop.enums.ActiveStatus;
@@ -29,44 +30,44 @@ import lombok.Setter;
 @Table(name = "shops")
 public class Shop extends Base {
 
-	@Column(name = "shop_name")
-	@NotNull
-	@NotBlank
-	private String shopName;
-	
-	@Column(name = "shop_desc")
-	private String shopDesc;
-	
-	@Column(name = "logo")
-	private String logo;
-	
-	@Column(name = "cover_image")
-	private String coverImage; // Ảnh bìa cửa hàng
-	
-	@Column(name = "action")
-	@Enumerated(EnumType.STRING)
-	private ActiveStatus action; // trạng thái hoạt động của cửa hàng
-	
-	@Column(name = "rating")
-	private Float rating;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "seller_id", nullable = false)
-	private User user;
-	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<Product> products;
-	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    @Column(name = "shop_name")
+    @NotNull
+    @NotBlank
+    private String shopName;
+
+    @Column(name = "shop_desc")
+    private String shopDesc;
+
+    @Column(name = "logo")
+    private String logo;
+
+    @Column(name = "cover_image")
+    private String coverImage; // Ảnh bìa cửa hàng
+
+    @Column(name = "action")
+    @Enumerated(EnumType.STRING)
+    private ActiveStatus action; // trạng thái hoạt động của cửa hàng
+
+    @Column(name = "rating", precision = 10, scale = 2)
+    private BigDecimal rating;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Order> orders;
-	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Notification> notifications;
-	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<Message> messages;
-	
-	@OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<ShopShippingMethod> shopShippingMethods;
-	
+
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<ShopShippingMethod> shopShippingMethods;
+
 }

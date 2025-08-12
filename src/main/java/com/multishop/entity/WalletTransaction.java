@@ -1,5 +1,7 @@
 package com.multishop.entity;
 
+import java.math.BigDecimal;
+
 import com.multishop.enums.WalletTransactionStatus;
 import com.multishop.enums.WalletTransactionType;
 
@@ -23,27 +25,27 @@ import lombok.Setter;
 @Entity
 @Table(name = "wallet_transactions")
 public class WalletTransaction extends Base { // Giao dịch ví
-	
-	@ManyToOne
-	@JoinColumn(name = "wallet_id", nullable = false)
-	private Wallet wallet;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "type")
-	private WalletTransactionType type; // Loại giao dịch ví
-	
-	@Column(name = "amount")
-	private Double amount;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "wallet_transaction_status")
-	private WalletTransactionStatus walletTransactionStatus;
 
-	@Column(name = "reference_id")
-	private Long referentceId; // Tham chiếu đến Order ID, Payment ID, ...
-	
-	@Lob
-	@Column(name = "description", columnDefinition = "TEXT")
-	private String description;
-	
+    @ManyToOne
+    @JoinColumn(name = "wallet_id", nullable = false)
+    private Wallet wallet;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private WalletTransactionType type; // Loại giao dịch ví
+
+    @Column(name = "amount", precision = 10, scale = 2)
+    private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "wallet_transaction_status")
+    private WalletTransactionStatus walletTransactionStatus;
+
+    @Column(name = "reference_id")
+    private Long referentceId; // Tham chiếu đến Order ID, Payment ID, ...
+
+    @Lob
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
 }

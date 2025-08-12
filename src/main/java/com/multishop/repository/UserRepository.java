@@ -11,9 +11,13 @@ import com.multishop.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findByEmail(String email);
-	List<User> findByStatus(Byte status);
-	Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+
+    List<User> findByStatus(Byte status);
+
+    Optional<User> findByUsername(String username);
+
     Boolean existsByUsername(String username);
+
     Boolean existsByEmail(String email);
 }

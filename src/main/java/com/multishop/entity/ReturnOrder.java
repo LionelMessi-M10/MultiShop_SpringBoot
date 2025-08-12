@@ -1,5 +1,6 @@
 package com.multishop.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,32 +29,32 @@ import lombok.Setter;
 @Table(name = "return_orders")
 public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
 
-	@ManyToOne
-	@JoinColumn(name = "order_id", nullable = false)
-	private Order order;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-	
-	@Lob
-	@Column(name = "return_reason", columnDefinition = "TEXT")
-	private String returnReason; // Lý do trả hàng, hoàn tiền
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "return_status")
-	private ReturnOrderStatus returnStatus; // Trạng thái yêu cầu
-	
-	@Column(name = "refund_amount")
-	private Double refundAmount; // NULL nếu chưa toàn tiền
-	
-	@Column(name = "return_date")
-	private LocalDateTime returnDate; // Ngày trả hàng
-	
-	@Column(name = "approved_rejected_at")
-	private LocalDateTime approvedRejectedAt; // Ngày xử lý yêu cầu
-	
-	@OneToMany(mappedBy = "returnOrder", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-	private List<ReturnOrderItem> returnOrderItems;
-	
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Lob
+    @Column(name = "return_reason", columnDefinition = "TEXT")
+    private String returnReason; // Lý do trả hàng, hoàn tiền
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "return_status")
+    private ReturnOrderStatus returnStatus; // Trạng thái yêu cầu
+
+    @Column(name = "refund_amount", precision = 10, scale = 2)
+    private BigDecimal refundAmount; // NULL nếu chưa toàn tiền
+
+    @Column(name = "return_date")
+    private LocalDateTime returnDate; // Ngày trả hàng
+
+    @Column(name = "approved_rejected_at")
+    private LocalDateTime approvedRejectedAt; // Ngày xử lý yêu cầu
+
+    @OneToMany(mappedBy = "returnOrder", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<ReturnOrderItem> returnOrderItems;
+
 }

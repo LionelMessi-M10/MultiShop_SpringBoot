@@ -1,5 +1,7 @@
 package com.multishop.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -18,18 +20,18 @@ import lombok.Setter;
 @Table(name = "return_order_items")
 public class ReturnOrderItem extends Base {
 
-	@ManyToOne
-	@JoinColumn(name = "return_order_id", nullable = false)
-	private ReturnOrder returnOrder;
-	
-	@ManyToOne
-	@JoinColumn(name = "order_detail_id", nullable = false)
-	private OrderDetail orderDetail;
-	
-	@Column(name = "quantity")
-	private Integer quantity; // Số lượng sản phẩm trả lại
+    @ManyToOne
+    @JoinColumn(name = "return_order_id", nullable = false)
+    private ReturnOrder returnOrder;
 
-	@Column(name = "refund_amount")
-	private Double refundAmount; // Số tiền hoàn lại cho mặt hàng này
-	
+    @ManyToOne
+    @JoinColumn(name = "order_detail_id", nullable = false)
+    private OrderDetail orderDetail;
+
+    @Column(name = "quantity")
+    private Integer quantity; // Số lượng sản phẩm trả lại
+
+    @Column(name = "refund_amount", precision = 10, scale = 2)
+    private BigDecimal refundAmount; // Số tiền hoàn lại cho mặt hàng này
+
 }
