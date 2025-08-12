@@ -71,13 +71,13 @@ public class GhnServiceImpl implements GhnService {
 
 	@Override
 	public void saveDistrict() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void saveWard() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

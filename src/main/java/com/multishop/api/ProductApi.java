@@ -21,7 +21,12 @@ public class ProductApi {
 
 	@GetMapping("/product")
 	public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
-		ProductDTO productDTO = new ProductDTO();
+
+		ProductDTO productDTO = productService.getProductById(id);
+		
+		if (productDTO == null) {
+			return ResponseEntity.notFound().build();
+		}
 		
 		return ResponseEntity.ok(productDTO);
 	}

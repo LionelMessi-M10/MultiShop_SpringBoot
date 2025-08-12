@@ -15,9 +15,6 @@ import javax.sql.DataSource;
 @Configuration
 public class ConfigSecurity {
 
-    @Autowired
-    private DataSource dataSource;
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

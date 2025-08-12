@@ -34,7 +34,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDTO getProductById(Long id) {
 		Product product = productRepository.findById(id).orElse(null);
-		// TODO Auto-generated method stub
+		if (product != null) {
+			return productConverter.convertEntityToDto(product);
+		}
 		return null;
 	}
 
