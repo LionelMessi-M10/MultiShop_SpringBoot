@@ -52,7 +52,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserResponse> findUsersByStatus(Byte status) {
-		// TODO Auto-generated method stub
+		List<User> users = userRepository.findByStatus(status);
+		if (users != null && !users.isEmpty()) {
+			return users.stream()
+					.map(user -> new UserResponse(user.getId(), user.getFullName(), user.getEmail(), user.getStatus()))
+					.toList();
+		}
 		return null;
 	}
 
