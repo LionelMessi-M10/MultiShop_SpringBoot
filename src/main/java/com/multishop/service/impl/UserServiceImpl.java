@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		newUser.setEmail(userDTO.getEmail());
 		newUser.setPassword(byBCryptPasswordEncoder.encode(userDTO.getPassword()));
 		newUser.setGender(userDTO.getGender());
-		newUser.setRoles(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
+		// newUser.setRoles(List.of(roleRepository.findById(userDTO.getRoleId()).get()));
 		
 		userRepository.save(newUser);
 	}

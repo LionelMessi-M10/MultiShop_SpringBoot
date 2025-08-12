@@ -1,14 +1,15 @@
 package com.multishop.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.multishop.enums.ERole;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,13 +19,13 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends Base {
 
-	@NotNull
-    @Column(name = "code", length = 50, nullable = false, unique = true)
-    private String code;
+	@Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
+    private ERole code;
 
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "role", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private Set<RolePermission> rolePermissions = new HashSet<>();
 }
