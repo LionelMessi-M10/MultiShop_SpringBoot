@@ -1,5 +1,8 @@
 package com.multishop.entity;
 
+import java.io.Serializable;
+
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,11 +16,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "role_permissions")
-public class RolePermission {
+@Table(name = "user_role_shop")
+public class UserRole {
 
     @EmbeddedId
-    private RolePermissionId id;
+    private UserRoleId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("roleId")
@@ -25,8 +33,16 @@ public class RolePermission {
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("permissionId")
-    @JoinColumn(name = "permission_id")
-    private Permission permission;
-    
+    @MapsId("shopId")
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+}
+
+@Embeddable
+@Data
+@NoArgsConstructor
+class UserRoleId implements Serializable {
+    private Long userId;
+    private Long roleId;
+    private Long shopId;
 }

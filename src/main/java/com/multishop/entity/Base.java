@@ -38,4 +38,5 @@ public abstract class Base implements Serializable {
     @LastModifiedBy
     @Column(name = "modified_by")
     private String modifiedBy;
+    
 }

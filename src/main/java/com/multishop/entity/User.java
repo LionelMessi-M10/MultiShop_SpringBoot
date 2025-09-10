@@ -30,9 +30,8 @@ import lombok.Setter;
 @Table(name = "users")
 public class User extends Base {
 
-    @Column(name = "full_name", length = 255)
     @NotNull
-    @NotBlank
+    @Column(name = "full_name", length = 255)
     private String fullName;
 
     @NotBlank(message = "Email không được trống")
@@ -51,7 +50,6 @@ public class User extends Base {
     private String phoneNumber;
 
     @NotNull
-    @NotBlank
     @Column(name = "password")
     private String password;
 
@@ -66,9 +64,12 @@ public class User extends Base {
     
     @Column(name = "enabled")
     private Integer enabled;
+    
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Token> tokens;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private Set<UserRoleShop> userRoleShops = new HashSet<>();
+    private Set<UserRole> userRoles = new HashSet<>();
     
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Order> orders;
