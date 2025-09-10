@@ -1,8 +1,5 @@
 package com.multishop.entity;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,13 +33,4 @@ public class UserRole {
     @MapsId("shopId")
     @JoinColumn(name = "shop_id")
     private Shop shop;
-}
-
-@Embeddable
-@Data
-@NoArgsConstructor
-class UserRoleId implements Serializable {
-    private Long userId;
-    private Long roleId;
-    private Long shopId;
 }
