@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user_role_shop")
+@Table(name = "user_roles")
 public class UserRole {
 
 	@EmbeddedId

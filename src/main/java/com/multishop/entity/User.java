@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.multishop.enums.AccountStatus;
 import com.multishop.enums.AuthProvider;
 
 import jakarta.persistence.CascadeType;
@@ -62,8 +63,18 @@ public class User extends Base {
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
     
-    @Column(name = "enabled")
-    private Integer enabled;
+    @Column(name = "is_email_verified")
+    private Boolean isEmailVerified = false; // Cần xác thực email để kích hoạt tài khoản
+    
+    @Column(name = "is_phone_verified")
+    private Boolean isPhoneVerified = false; // Xác thực số điện thoại qua OTP
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_status", nullable = false)
+    private AccountStatus accountStatus = AccountStatus.ACTIVE;
+    
+    @Column(name = "last_login")
+    private LocalDateTime lastLogin;
     
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Token> tokens;
