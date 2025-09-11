@@ -33,5 +33,5 @@ public class UserRole {
 	@MapsId("shopId")
 	@JoinColumn(name = "shop_id")
 	private Shop shop;
-	
+
 }

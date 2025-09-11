@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Permission extends Base {
 
     @Column(nullable = false, length = 100, unique = true)
-    private String code; // Mã quyền, ví dụ: "PRODUCT_WRITE"
+    private String code; // Mã quyền, ví dụ: "CREATE_PRODUCT", "VIEW_ORDER"
 
     @Column(columnDefinition = "TEXT")
     private String name; // Tên hiển thị của quyền, ví dụ: "Tạo/Sửa sản phẩm"

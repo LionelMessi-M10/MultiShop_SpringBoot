@@ -6,10 +6,10 @@ import jakarta.persistence.Embeddable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Embeddable
+@Embeddable
 @Data
 @NoArgsConstructor
-class RolePermissionId implements Serializable {
-    private Long roleId;
-    private Long permissionId;
+public class RolePermissionId implements Serializable {
+	private Long roleId;
+	private Long permissionId;
 }

@@ -26,12 +26,12 @@ import lombok.Setter;
 public class Role extends Base {
 
 	@Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
-    private ERole code;
+	@Column(nullable = false, unique = true)
+	private ERole code;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+	@Column(name = "name", length = 50, nullable = false)
+	private String name;
 
-    @OneToMany(mappedBy = "role", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private Set<RolePermission> rolePermissions = new HashSet<>();
+	@OneToMany(mappedBy = "role", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private Set<RolePermission> rolePermissions = new HashSet<>();
 }

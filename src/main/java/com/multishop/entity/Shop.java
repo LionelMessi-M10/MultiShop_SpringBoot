@@ -41,8 +41,8 @@ public class Shop extends Base {
     @Column(name = "logo")
     private String logo;
 
-    @Column(name = "cover_image")
-    private String coverImage; // Ảnh bìa cửa hàng
+    @Column(name = "banner_image")
+    private String bannerImage; // Ảnh bìa cửa hàng
 
     @Column(name = "action")
     @Enumerated(EnumType.STRING)
@@ -53,7 +53,7 @@ public class Shop extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
-    private User user;
+    private User seller;
 
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Product> products;

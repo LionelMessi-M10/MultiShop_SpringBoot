@@ -13,11 +13,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,73 +30,76 @@ import lombok.Setter;
 @Table(name = "users")
 public class User extends Base {
 
-    @NotNull
-    @Column(name = "full_name", length = 255)
-    private String fullName;
+	@Column(name = "full_name", length = 255, nullable = false)
+	private String fullName;
 
-    @NotBlank(message = "Email không được trống")
-    @Email(message = "Email không đúng định dạng")
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
+	@Column(name = "email", unique = true, nullable = false)
+	private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private AuthProvider provider = AuthProvider.LOCAL;
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private AuthProvider provider = AuthProvider.LOCAL;
 
-    @Column(length = 255)
-    private String providerId;
-    
-    @Column(name = "phone_number", length = 12, unique = true)
-    private String phoneNumber;
+	@Column(length = 255)
+	private String providerId;
 
-    @NotNull
-    @Column(name = "password")
-    private String password;
+	@Column(name = "phone_number", unique = true)
+	private String phoneNumber;
 
-    @Column(name = "gender", length = 10)
-    private Byte gender;
-    
-    @Column(name = "avartar_url")
-    private String avartarUrl;
-    
-    @Column(name = "date_of_birth")
-    private LocalDateTime dateOfBirth;
-    
-    @Column(name = "is_email_verified")
-    private Boolean isEmailVerified = false; // Cần xác thực email để kích hoạt tài khoản
-    
-    @Column(name = "is_phone_verified")
-    private Boolean isPhoneVerified = false; // Xác thực số điện thoại qua OTP
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "account_status", nullable = false)
-    private AccountStatus accountStatus = AccountStatus.ACTIVE;
-    
-    @Column(name = "last_login")
-    private LocalDateTime lastLogin;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Token> tokens;
+	@Column(name = "password", nullable = false)
+	private String password;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private Set<UserRole> userRoles = new HashSet<>();
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Order> orders;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Address> addresses;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Review> reviews;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<WishList> wishLists;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Notification> notifications;
-    
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Message> messages;
-    
+	@Column(name = "gender", length = 10)
+	private Byte gender;
+
+	@Column(name = "avartar_url")
+	private String avartarUrl;
+
+	@Column(name = "date_of_birth")
+	private LocalDateTime dateOfBirth;
+
+	@Column(name = "is_email_verified")
+	private Boolean isEmailVerified = false; // Cần xác thực email để kích hoạt tài khoản
+
+	@Column(name = "is_phone_verified")
+	private Boolean isPhoneVerified = false; // Xác thực số điện thoại qua OTP
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "account_status", nullable = false)
+	private AccountStatus accountStatus = AccountStatus.ACTIVE;
+
+	@Column(name = "last_login")
+	private LocalDateTime lastLogin;
+	
+	@ManyToOne // Tài khoản phụ sẽ liên kết với tài khoản chính
+    @JoinColumn(name = "main_account_id")
+    private User mainAccount;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Token> tokens;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private Set<UserRole> userRoles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Shop> shops;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Order> orders;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Address> addresses;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Review> reviews;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<WishList> wishLists;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Notification> notifications;
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Message> messages;
+
 }
