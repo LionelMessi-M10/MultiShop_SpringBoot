@@ -101,5 +101,10 @@ public class User extends Base {
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Message> messages;
+	
+	// Logic kiểm tra tài khoản chính
+    public boolean isMainAccount() {
+        return this.mainAccount == null;
+    }
 
 }
