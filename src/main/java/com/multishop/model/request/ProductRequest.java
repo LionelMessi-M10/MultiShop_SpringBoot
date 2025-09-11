@@ -1,11 +1,15 @@
-package com.multishop.model.dto;
+package com.multishop.model.request;
 
 import java.util.List;
+
+import com.multishop.model.dto.CategoryDTO;
+import com.multishop.model.dto.ProductAttributeValueDTO;
+import com.multishop.model.dto.ProductImageDTO;
 
 import lombok.Data;
 
 @Data
-public class ProductDTO {
+public class ProductRequest {
 
 	private Long id;
 	private String name;

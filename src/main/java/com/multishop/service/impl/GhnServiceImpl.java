@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.multishop.converter.ProvinceConverter;
 import com.multishop.entity.Province;
-import com.multishop.model.dto.ProvinceDTO;
+import com.multishop.model.response.ProvinceResponse;
 import com.multishop.repository.ProvinceRepository;
 import com.multishop.service.GhnService;
 
@@ -40,10 +40,9 @@ public class GhnServiceImpl implements GhnService {
 	private String ghnToken;
 
 	@Override
-	public List<ProvinceDTO> getAllProvince() {
+	public List<ProvinceResponse> getAllProvince() {
 		List<Province> provinces = provinceRepository.findAll();
-
-		return provinces.stream().map(item -> provinceConverter.convertEntityDto(item)).collect(Collectors.toList());
+		return provinces.stream().map(item -> provinceConverter.convertEntityToResponse(item)).collect(Collectors.toList());
 	}
 
 	@Override

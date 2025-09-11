@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Set<GrantedAuthority> authorities = new HashSet<>();
         // Thêm vai trò (Role) dưới dạng quyền
-        user.getUserRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole())));
+        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getCode())));
 
         // Tạo đối tượng UserDetails tùy chỉnh, có thể lưu thêm thông tin nếu cần
         return new org.springframework.security.core.userdetails.User(

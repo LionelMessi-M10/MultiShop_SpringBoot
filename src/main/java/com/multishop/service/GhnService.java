@@ -2,11 +2,11 @@ package com.multishop.service;
 
 import java.util.List;
 
-import com.multishop.model.dto.ProvinceDTO;
+import com.multishop.model.response.ProvinceResponse;
 
 public interface GhnService {
 	
-	List<ProvinceDTO> getAllProvince();
+	List<ProvinceResponse> getAllProvince();
 	
 	void saveProvine();
 	void saveDistrict();

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.multishop.entity.Province;
-import com.multishop.model.dto.ProvinceDTO;
+import com.multishop.model.response.ProvinceResponse;
 
 @Configuration
 public class ProvinceConverter {
@@ -22,8 +22,8 @@ public class ProvinceConverter {
         return entity;
 	}
 	
-	public ProvinceDTO convertEntityDto(Province province) {
-		return modelMapper.map(province, ProvinceDTO.class);
+	public ProvinceResponse convertEntityToResponse(Province province) {
+		return modelMapper.map(province, ProvinceResponse.class);
 	}
 	
 }

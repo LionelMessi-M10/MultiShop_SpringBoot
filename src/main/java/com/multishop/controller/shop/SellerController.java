@@ -1,4 +1,4 @@
-package com.multishop.controller;
+package com.multishop.controller.shop;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

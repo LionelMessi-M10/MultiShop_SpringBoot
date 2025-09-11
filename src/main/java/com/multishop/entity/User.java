@@ -1,7 +1,6 @@
 package com.multishop.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +12,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -71,15 +73,23 @@ public class User extends Base {
 	@Column(name = "last_login")
 	private LocalDateTime lastLogin;
 	
-	@ManyToOne // Tài khoản phụ sẽ liên kết với tài khoản chính
+	@ManyToOne(fetch = FetchType.LAZY) // Tài khoản phụ sẽ liên kết với tài khoản chính
     @JoinColumn(name = "main_account_id")
     private User mainAccount;
+	
+	@OneToMany(mappedBy = "mainAccount")
+    private Set<User> subAccounts;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Token> tokens;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
-	private Set<UserRole> userRoles = new HashSet<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 	
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Shop> shops;

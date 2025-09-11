@@ -1,4 +1,4 @@
-package com.multishop.controller;
+package com.multishop.controller.web;
 
 import java.util.Collections;
 
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.multishop.entity.Role;
 import com.multishop.entity.User;
-import com.multishop.entity.UserRole;
-import com.multishop.entity.UserRoleId;
 import com.multishop.enums.ERole;
 import com.multishop.model.request.RegistrationRequest;
 import com.multishop.model.response.AuthenticationResponse;
@@ -69,14 +67,7 @@ public class AuthController {
         // Tìm vai trò 'SELLER' hoặc 'BUYER' trong database
         Role sellerRole = roleRepository.findByCode(ERole.valueOf(registrationRequest.getRoleName())).orElseThrow(() -> new RuntimeException("Role not found!"));
         
-        UserRole userRole = new UserRole();
-        
-        userRole.setId(new UserRoleId(user.getId(), sellerRole.getId(), user.getShops().get(0).getId()));
-        userRole.setRole(sellerRole);
-        userRole.setUser(user);
-        userRole.setShop(user.getShops().get(0));
-        
-        user.setUserRoles(Collections.singleton(userRole));
+        user.setRoles(Collections.singleton(sellerRole));
 
         // 4. Lưu User vào database
         userRepository.save(user);

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.multishop.converter.ProductConverter;
 import com.multishop.entity.Product;
-import com.multishop.model.dto.ProductDTO;
-import com.multishop.model.response.ProductReponse;
+import com.multishop.model.response.ProductResponse;
 import com.multishop.repository.ProductRepository;
 import com.multishop.service.ProductService;
 
@@ -23,19 +22,19 @@ public class ProductServiceImpl implements ProductService {
 	private ProductConverter productConverter;
 
 	@Override
-	public List<ProductReponse> getAllProducts() {
+	public List<ProductResponse> getAllProducts() {
 
-		List<ProductReponse> res = productRepository.findAll().stream()
+		List<ProductResponse> res = productRepository.findAll().stream()
 				.map(item -> productConverter.convertEntityToReponse(item)).collect(Collectors.toList());
 
 		return res;
 	}
 
 	@Override
-	public ProductDTO getProductById(Long id) {
+	public ProductResponse getProductById(Long id) {
 		Product product = productRepository.findById(id).orElse(null);
 		if (product != null) {
-			return productConverter.convertEntityToDto(product);
+			return productConverter.convertEntityToReponse(product);
 		}
 		return null;
 	}

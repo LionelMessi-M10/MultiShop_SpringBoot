@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.multishop.entity.Product;
-import com.multishop.model.dto.ProductDTO;
-import com.multishop.model.response.ProductReponse;
+import com.multishop.model.response.ProductResponse;
 
 @Configuration
 public class ProductConverter {
@@ -14,26 +13,20 @@ public class ProductConverter {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public ProductReponse convertEntityToReponse(Product product) {
-		ProductReponse productReponse = modelMapper.map(product, ProductReponse.class);
+	public ProductResponse convertEntityToReponse(Product product) {
+		ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
 		
 		if(product.getStatus() == 0) {
-			productReponse.setStatus("In Active");
+			productResponse.setStatus("In Active");
 		}
 		else if(product.getStock() > 0 && product.getStatus() == 1) {
-			productReponse.setStatus("Active");
+			productResponse.setStatus("Active");
 		}
 		else if(product.getStock() == 0) {
-			productReponse.setStatus("Out Stock");
+			productResponse.setStatus("Out Stock");
 		}
 		
-		return productReponse;
-	}
-	
-	public ProductDTO convertEntityToDto(Product product) {
-		ProductDTO productDTO = new ProductDTO();
-		
-		return productDTO;
+		return productResponse;
 	}
 	
 }
