@@ -34,5 +34,6 @@ public class UserRequest {
 	private Boolean isEmailVerified;
 	private Boolean isPhoneVerified;
 	private String accountStatus;
+	private String roleCode;
 
 }

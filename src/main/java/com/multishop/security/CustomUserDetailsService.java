@@ -1,5 +1,8 @@
 package com.multishop.security;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,17 +13,13 @@ import org.springframework.stereotype.Service;
 import com.multishop.entity.User;
 import com.multishop.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Set;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
