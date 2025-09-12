@@ -41,7 +41,7 @@ public class InvoicePdfServiceImpl implements InvoicePdfService {
         document.add(new Paragraph("HÓA ĐƠN MUA HÀNG", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16)));
         document.add(new Paragraph("Mã đơn hàng: " + order.getId()));
         document.add(new Paragraph("Ngày đặt: " + order.getCreatedDate()));
-        document.add(new Paragraph("Khách hàng: " + order.getUser().getFullName()));
+        document.add(new Paragraph("Khách hàng: " + order.getUser().getUserName()));
         document.add(new Paragraph("Tổng tiền: " + order.getFinalAmount() + " VND"));
         document.add(new Paragraph("Cảm ơn bạn đã mua hàng tại MultiShop!"));
 

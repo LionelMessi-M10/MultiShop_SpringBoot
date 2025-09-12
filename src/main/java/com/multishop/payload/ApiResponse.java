@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 public class ApiResponse<T> {
 
-	private boolean success;
+	private int status;
 	private String message;
 	private T data;
 	private LocalDateTime timestamp;
 
-	public ApiResponse(boolean success, String message, T data) {
-		this.success = success;
+	public ApiResponse(int status, String message, T data) {
+		this.status = status;
 		this.message = message;
 		this.data = data;
 		this.timestamp = LocalDateTime.now();

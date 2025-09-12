@@ -2,6 +2,7 @@ package com.multishop.controller.shop;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,8 @@ public class GhnApi {
 
 	@GetMapping("/province")
 	public ResponseEntity<ApiResponse<List<ProvinceResponse>>> getAllProvince() {
-		return ResponseEntity.ok(new ApiResponse<>(true, "Get all province success", ghnService.getAllProvince()));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ApiResponse<>(HttpStatus.OK.value(), "Get province success", ghnService.getAllProvince()));
 	}
 
 }

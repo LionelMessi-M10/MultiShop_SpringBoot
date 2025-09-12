@@ -32,8 +32,8 @@ import lombok.Setter;
 @Table(name = "users")
 public class User extends Base {
 
-	@Column(name = "full_name", length = 255, nullable = false)
-	private String fullName;
+	@Column(name = "user_name", length = 255, nullable = false)
+	private String userName;
 
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
@@ -72,25 +72,21 @@ public class User extends Base {
 
 	@Column(name = "last_login")
 	private LocalDateTime lastLogin;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY) // Tài khoản phụ sẽ liên kết với tài khoản chính
-    @JoinColumn(name = "main_account_id")
-    private User mainAccount;
-	
+	@JoinColumn(name = "main_account_id")
+	private User mainAccount;
+
 	@OneToMany(mappedBy = "mainAccount")
-    private Set<User> subAccounts;
+	private Set<User> subAccounts;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Token> tokens;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
-	
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Shop> shops;
 
@@ -111,10 +107,10 @@ public class User extends Base {
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Message> messages;
-	
+
 	// Logic kiểm tra tài khoản chính
-    public boolean isMainAccount() {
-        return this.mainAccount == null;
-    }
+	public boolean isMainAccount() {
+		return this.mainAccount == null;
+	}
 
 }
