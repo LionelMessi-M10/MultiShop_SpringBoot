@@ -20,6 +20,7 @@ public class UserRequest {
 
 	@Email(message = "Email không hợp lệ")
 	private String email;
+	
 	private String provider;
 	private String provideId;
 	private String phoneNumber;
