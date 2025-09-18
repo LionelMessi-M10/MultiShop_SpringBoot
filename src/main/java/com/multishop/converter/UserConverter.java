@@ -21,9 +21,10 @@ public class UserConverter {
 	public User covertToEntity(UserRequest userRequest) {
 		User user = modelMapper.map(userRequest, User.class);
 		
+		user.setPassword(byBCryptPasswordEncoder.encode(userRequest.getPassword()));
+
 		if(!userRequest.getProvider().isEmpty()) user.setProvider(AuthProvider.valueOf(userRequest.getProvideId()));
 		if(!userRequest.getAccountStatus().isEmpty()) user.setAccountStatus(AccountStatus.valueOf(userRequest.getAccountStatus())); 
-		user.setPassword(byBCryptPasswordEncoder.encode(userRequest.getPassword()));
 		
 		return user;
 	}

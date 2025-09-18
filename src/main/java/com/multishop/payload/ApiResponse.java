@@ -2,11 +2,13 @@ package com.multishop.payload;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
-@Getter
-@Setter
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class ApiResponse<T> {
 
 	private int status;
@@ -14,11 +16,17 @@ public class ApiResponse<T> {
 	private T data;
 	private LocalDateTime timestamp;
 
-	public ApiResponse(int status, String message, T data) {
-		this.status = status;
-		this.message = message;
-		this.data = data;
-		this.timestamp = LocalDateTime.now();
+	// factory method tiện lợi
+	public static <T> ApiResponse<T> success(HttpStatus status, T data, String message) {
+		return new ApiResponse<>(status.value(), message, data, LocalDateTime.now());
 	}
-
+	
+	public static <T> ApiResponse<T> error(HttpStatus status, String message) {
+		return new ApiResponse<>(status.value(), message, null, LocalDateTime.now());
+	}
+	
+	public static <T> ApiResponse<T> error(HttpStatus status, String message, T data) {
+        return new ApiResponse<>(status.value(), message, data, LocalDateTime.now());
+    }
+	
 }

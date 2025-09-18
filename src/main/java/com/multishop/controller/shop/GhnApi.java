@@ -30,7 +30,7 @@ public class GhnApi {
 	@GetMapping("/province")
 	public ResponseEntity<ApiResponse<List<ProvinceResponse>>> getAllProvince() {
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(new ApiResponse<>(HttpStatus.OK.value(), "Get province success", ghnService.getAllProvince()));
+				.body(ApiResponse.success(HttpStatus.OK, ghnService.getAllProvince(), "Get province success"));
 	}
 
 }

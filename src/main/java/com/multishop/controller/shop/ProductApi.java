@@ -26,10 +26,10 @@ public class ProductApi {
 
 		if (productResponse == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Not found product by id: " + id, null));
+					.body(ApiResponse.error(HttpStatus.NOT_FOUND, "Not found product by id: " + id));
 		}
 
-		return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "SUCCESS", productResponse));
+		return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK, productResponse, "SUCCESS"));
 	}
 
 }

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void registerAccount(UserRequest userRequest) {
 		User newUser = userConverter.covertToEntity(userRequest);
-		this.userRepository.saveAndFlush(newUser);		
+		this.userRepository.saveAndFlush(newUser);
 	}
 
 	@Override
@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
 					.toList();
 		}
 		return null;
+	}
+
+	@Override
+	public Boolean checkExistUserByEmail(String email) {
+		return userRepository.findByEmail(email).isPresent();
 	}
 
 }

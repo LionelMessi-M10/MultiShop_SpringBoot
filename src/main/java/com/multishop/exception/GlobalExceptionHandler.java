@@ -12,30 +12,38 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.multishop.payload.ApiResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	// Bắt lỗi validate (DTO)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
-			MethodArgumentNotValidException ex) {
+    // Bắt lỗi validate (DTO)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
 
-		Map<String, String> errors = new HashMap<>();
-		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-			errors.put(error.getField(), error.getDefaultMessage());
-		}
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
 
-		ApiResponse<Map<String, String>> response = new ApiResponse<>(HttpStatus.BAD_REQUEST.value(),
-				"Validation failed", errors);
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.error(HttpStatus.BAD_REQUEST, "Validation failed", errors));
+    }
 
-		return ResponseEntity.badRequest().body(response);
-	}
+    // Bắt BusinessException
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiResponse<String>> handleBusinessException(BusinessException ex) {
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.error(HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
 
-	// Bắt các Exception chung
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ApiResponse<String>> handleGlobalException(Exception ex) {
-		ApiResponse<String> response = new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(),
-				null);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	}
+    // Bắt các Exception chung
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<String>> handleGlobalException(Exception ex) {
+        log.error("Unhandled exception: ", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"));
+    }
 }
