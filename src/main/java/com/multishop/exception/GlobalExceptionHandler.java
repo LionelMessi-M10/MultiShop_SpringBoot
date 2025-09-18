@@ -15,16 +15,6 @@ import com.multishop.payload.ApiResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> handleValidationErrors(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-
-		ex.getBindingResult().getFieldErrors()
-				.forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-
-		return ResponseEntity.badRequest().body(errors);
-	}
-
 	// Bắt lỗi validate (DTO)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
