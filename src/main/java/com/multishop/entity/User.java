@@ -18,6 +18,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -87,8 +88,11 @@ public class User extends Base {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	@OneToMany(mappedBy = "seller", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Shop> shops;
+	
+	@OneToOne(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private Cart cart;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Order> orders;
