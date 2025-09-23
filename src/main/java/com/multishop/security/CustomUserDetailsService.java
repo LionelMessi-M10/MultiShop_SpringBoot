@@ -1,10 +1,5 @@
 package com.multishop.security;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,26 +10,17 @@ import com.multishop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found by: " + email));
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found by: " + email));
 
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        // Thêm vai trò (Role) dưới dạng quyền
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getCode().toString())));
-
-        // Tạo đối tượng UserDetails tùy chỉnh, có thể lưu thêm thông tin nếu cần
-        return new org.springframework.security.core.userdetails.User(
-            user.getEmail(),
-            user.getPassword(),
-            authorities
-        );
-    }
+		return new CustomUserDetails(user);
+	}
 }
