@@ -91,6 +91,9 @@ public class User extends Base {
 	@OneToMany(mappedBy = "seller", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Shop> shops;
 	
+	@OneToMany(mappedBy = "staff", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<ShopStaff> shopStaffs;
+	
 	@OneToOne(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Cart cart;
 

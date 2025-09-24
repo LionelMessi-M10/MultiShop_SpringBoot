@@ -27,7 +27,7 @@ public class ShopStaff {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private User staff;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "shop_staff_roles", joinColumns = @JoinColumn(name = "shop_staff_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
