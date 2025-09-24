@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.multishop.entity.Shop;
 import com.multishop.entity.User;
-import com.multishop.entity.UserShopId;
+import com.multishop.entity.UserShopPermissionId;
 import com.multishop.entity.UserShopPermission;
 
 @Repository
-public interface UserShopPermissionRepository extends JpaRepository<UserShopPermission, UserShopId> {
+public interface UserShopPermissionRepository extends JpaRepository<UserShopPermission, UserShopPermissionId> {
 
 	Optional<User> findByUserAndShopAndPermissionName(User user, Shop shop, String string);
 

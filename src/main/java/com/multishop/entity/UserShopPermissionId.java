@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Data
 @NoArgsConstructor
-public class UserShopId implements Serializable {
+public class UserShopPermissionId implements Serializable {
 	private Long userId;
 	private Long shopId;
 	private Long permissionId;

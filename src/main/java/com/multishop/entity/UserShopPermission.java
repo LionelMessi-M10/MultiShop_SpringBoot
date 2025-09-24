@@ -15,7 +15,7 @@ import lombok.Data;
 public class UserShopPermission {
 
 	@EmbeddedId
-	private UserShopId id;
+	private UserShopPermissionId id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("userId")
