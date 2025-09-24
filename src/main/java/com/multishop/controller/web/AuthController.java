@@ -34,11 +34,9 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-					authenticationRequest.getPassword()));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {
-			return ResponseEntity.badRequest()
-					.body(ApiResponse.error(HttpStatus.BAD_REQUEST, "Incorrect email or password"));
+			return ResponseEntity.badRequest().body(ApiResponse.error(HttpStatus.BAD_REQUEST, "Incorrect email or password"));
 		}
 
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
