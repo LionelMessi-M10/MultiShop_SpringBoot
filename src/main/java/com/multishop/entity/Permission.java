@@ -1,7 +1,11 @@
 package com.multishop.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +23,10 @@ public class Permission extends Base {
     @Column(nullable = false, length = 100, unique = true)
     private String code; // Mã quyền, ví dụ: "CREATE_PRODUCT", "VIEW_ORDER"
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 500)
     private String name; // Tên hiển thị của quyền, ví dụ: "Tạo/Sửa sản phẩm"
+    
+    @OneToMany(mappedBy = "permission", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<UserShopPermission> userShopPermissions;
 
 }
