@@ -1,7 +1,6 @@
 package com.multishop.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,5 @@ import com.multishop.entity.ShopStaff;
 public interface ShopStaffRepository extends JpaRepository<ShopStaff, Long> {
 
 	List<ShopStaff> findByShop(Shop shop);
-	Optional<ShopStaff> findByUserIdAndShopId(Long userId, Long shopId);
 	
 }
