@@ -14,5 +14,6 @@ import com.multishop.entity.UserShopPermission;
 public interface UserShopPermissionRepository extends JpaRepository<UserShopPermission, UserShopPermissionId> {
 
 	Optional<User> findByUserAndShopAndPermissionName(User user, Shop shop, String string);
+	boolean existsByUserIdAndShopIdAndPermissionCode(Long userId, Long shopId, String code);
 
 }
