@@ -31,4 +31,5 @@ public class UserShopPermission {
     @MapsId("permissionId")
     @JoinColumn(name = "permission_id")
     private Permission permission;
+	
 }

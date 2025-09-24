@@ -50,7 +50,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
             Shop shop = shopOptional.get();
 
             // Kiểm tra tài khoản chính
-            if (user.isMainAccount() && shop.getSeller().getId().equals(user.getId())) {
+            if (user.isMainAccount()) {
                 return true;
             }
 
