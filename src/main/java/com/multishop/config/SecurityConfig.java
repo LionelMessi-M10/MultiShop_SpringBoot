@@ -1,4 +1,4 @@
-package com.multishop.security;
+package com.multishop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.multishop.security.CustomPermissionEvaluator;
+import com.multishop.security.CustomUserDetailsService;
+import com.multishop.security.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +38,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(
 				auth -> auth.requestMatchers("/api/auth/**").permitAll()
 							.requestMatchers("/admin/**").hasRole("ADMIN")
-		                    .requestMatchers("/seller/**").hasAuthority("CREATE_PRODUCT")
+		                    .requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().authenticated())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -62,8 +66,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public MethodSecurityExpressionHandler methodSecurityExpressionHandler(
-			CustomPermissionEvaluator customPermissionEvaluator) {
+	public MethodSecurityExpressionHandler methodSecurityExpressionHandler(CustomPermissionEvaluator customPermissionEvaluator) {
 		DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 		expressionHandler.setPermissionEvaluator(customPermissionEvaluator);
 		return expressionHandler;

@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.multishop.entity.Shop;
-import com.multishop.entity.User;
+import com.multishop.entity.ShopStaff;
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop, Long> {
+public interface ShopStaffRepository extends JpaRepository<ShopStaff, Long> {
 
-	List<Shop> findBySeller(User seller);
+	List<ShopStaff> findByShop(Shop shop);
 	
 }
