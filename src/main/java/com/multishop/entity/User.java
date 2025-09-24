@@ -87,9 +87,6 @@ public class User extends Base {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
-
-	@OneToMany(mappedBy = "seller", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
-	private List<Shop> shops;
 	
 	@OneToMany(mappedBy = "staff", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<ShopStaff> shopStaffs;

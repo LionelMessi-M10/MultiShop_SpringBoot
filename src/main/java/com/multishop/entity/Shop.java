@@ -50,10 +50,6 @@ public class Shop extends Base {
 
     @Column(name = "rating", precision = 10, scale = 2)
     private BigDecimal rating;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id", nullable = false)
-    private User seller;
     
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<ShopStaff> shopStaffs;
