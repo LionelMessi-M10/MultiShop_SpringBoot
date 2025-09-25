@@ -1,6 +1,5 @@
 package com.multishop.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.multishop.enums.ERole;
@@ -32,6 +31,6 @@ public class Role extends Base {
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "role", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
-	private Set<RolePermission> rolePermissions = new HashSet<>();
+	@OneToMany(mappedBy = "role", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private Set<RolePermission> rolePermissions;
 }

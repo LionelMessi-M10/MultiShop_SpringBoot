@@ -1,12 +1,11 @@
 package com.multishop.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -28,9 +27,8 @@ public class Permission extends Base {
     @Column(length = 500)
     private String name; // Tên hiển thị của quyền, ví dụ: "Tạo/Sửa sản phẩm"
     
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @OneToMany(mappedBy = "permission", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private Set<RolePermission> rolePermissions;
     
     @OneToMany(mappedBy = "permission", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<UserShopPermission> userShopPermissions;

@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "shop_staff")
+@Table(name = "shop_staffs")
 public class ShopStaff {
 
 	@Id
@@ -26,7 +26,7 @@ public class ShopStaff {
 	private Shop shop;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "staff_id", nullable = false)
 	private User staff;
 
 	@ManyToMany(fetch = FetchType.EAGER)
