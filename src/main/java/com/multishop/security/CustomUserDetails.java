@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.multishop.entity.Role;
 import com.multishop.entity.User;
 import com.multishop.enums.AccountStatus;
 
@@ -25,10 +24,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<String> permissions = new HashSet<>();
 
-        for (Role role : user.getRoles()) {
-            permissions.add(role.getCode().name()); // ROLE_ADMIN, ROLE_USER...
-            role.getRolePermissions().forEach(rp -> permissions.add(rp.getPermission().getCode()));
-        }
+        permissions.add(user.getSystemRole().getCode().name()); // ROLE_ADMIN, ROLE_USER...
 
         return permissions.stream()
                 .map(SimpleGrantedAuthority::new)

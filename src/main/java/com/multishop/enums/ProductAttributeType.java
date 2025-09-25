@@ -1,5 +1,5 @@
 package com.multishop.enums;
 
 public enum ProductAttributeType {
-	TEXT, NUMBER, BOOLEAN, COLOR
+	COLOR, INT, TEXT, NUMBER
 }

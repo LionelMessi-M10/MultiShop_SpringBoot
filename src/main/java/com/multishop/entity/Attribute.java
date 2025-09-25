@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "attributes")
 @Getter 
 @Setter
+@Entity
+@Table(name = "attributes")
 public class Attribute {
 	
     @Id 
@@ -27,6 +27,6 @@ public class Attribute {
     private String name; // Màu sắc, kích thước, chất liệu, ...
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_attribute_value")
-    private ProductAttributeType productAttribute;
+    @Column(name = "product_attribute_type")
+    private ProductAttributeType productAttributeType;
 }
