@@ -41,8 +41,8 @@ public class Review extends Base {
 	@Column(name = "image_urls", columnDefinition = "TEXT")
 	private String imageUrls;
 	
-	@Column(name = "is_approved")
-	private Boolean isApproved; // Co the can admin duyet
+//	@Column(name = "is_approved")
+//	private Boolean isApproved; // Co the can admin duyet
 	
 	@Column(name = "helpful_votes")
 	private Integer helpfulVotes; // so luong vote tot
