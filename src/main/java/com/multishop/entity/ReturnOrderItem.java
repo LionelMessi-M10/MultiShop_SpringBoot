@@ -23,11 +23,11 @@ public class ReturnOrderItem extends Base {
     @ManyToOne
     @JoinColumn(name = "return_order_id", nullable = false)
     private ReturnOrder returnOrder;
-
+    
     @ManyToOne
-    @JoinColumn(name = "order_detail_id", nullable = false)
-    private OrderDetail orderDetail;
-
+    @JoinColumn(name = "return_product_id")
+    private Product product;
+    
     @Column(name = "quantity")
     private Integer quantity; // Số lượng sản phẩm trả lại
 

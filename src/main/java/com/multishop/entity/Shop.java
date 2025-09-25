@@ -68,5 +68,8 @@ public class Shop extends Base {
 
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<ShopShippingMethod> shopShippingMethods;
+    
+    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private List<ReturnPolicy> returnPolicies; // Danh sách chính sách trả hàng của cửa hàng
 
 }
