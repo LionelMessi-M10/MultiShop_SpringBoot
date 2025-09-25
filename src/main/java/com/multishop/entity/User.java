@@ -14,8 +14,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -81,9 +79,9 @@ public class User extends Base {
 	@OneToMany(mappedBy = "mainAccount")
 	private Set<User> subAccounts;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "system_role_id")
+    private Role systemRole;
 	
 	@OneToMany(mappedBy = "staff", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<ShopStaff> shopStaffs;

@@ -26,7 +26,7 @@ public class Attribute {
     @Column(name = "name")
     private String name; // Màu sắc, kích thước, chất liệu, ...
     
-    @Column(name = "product_attribute_value")
     @Enumerated(EnumType.STRING)
+    @Column(name = "product_attribute_value")
     private ProductAttributeType productAttribute;
 }
