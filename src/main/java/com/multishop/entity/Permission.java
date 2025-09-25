@@ -1,6 +1,5 @@
 package com.multishop.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -29,8 +28,5 @@ public class Permission extends Base {
     
     @OneToMany(mappedBy = "permission", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<RolePermission> rolePermissions;
-    
-    @OneToMany(mappedBy = "permission", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<UserShopPermission> userShopPermissions;
 
 }

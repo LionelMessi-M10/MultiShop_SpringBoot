@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.multishop.security.CustomPermissionEvaluator;
 import com.multishop.security.CustomUserDetailsService;
 import com.multishop.security.JwtAuthenticationFilter;
 
@@ -65,10 +64,4 @@ public class SecurityConfig {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
-	@Bean
-	public MethodSecurityExpressionHandler methodSecurityExpressionHandler(CustomPermissionEvaluator customPermissionEvaluator) {
-		DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-		expressionHandler.setPermissionEvaluator(customPermissionEvaluator);
-		return expressionHandler;
-	}
 }
