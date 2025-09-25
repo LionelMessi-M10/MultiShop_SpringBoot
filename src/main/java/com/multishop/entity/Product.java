@@ -54,7 +54,7 @@ public class Product extends Base {
     @Column(name = "brand")
     private String brand; // Thương hiệu sản phẩm
 
-    @Column(name = "sku", length = 100)
+    @Column(name = "sku", length = 100, unique = true)
     private String sku; // mã sản phẩm nội bộ
 
     @Column(name = "weight", nullable = false, precision = 10, scale = 2)
