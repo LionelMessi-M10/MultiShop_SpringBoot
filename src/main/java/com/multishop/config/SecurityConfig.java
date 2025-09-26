@@ -38,7 +38,8 @@ public class SecurityConfig {
 				auth -> auth.requestMatchers("/api/auth/**").permitAll()
 							.requestMatchers("/admin/**").hasRole("ADMIN")
 		                    .requestMatchers("/seller/**").hasAuthority("SELLER")
-				.anyRequest().authenticated())
+				.anyRequest().permitAll()
+			)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

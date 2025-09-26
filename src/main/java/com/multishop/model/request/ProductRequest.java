@@ -2,7 +2,6 @@ package com.multishop.model.request;
 
 import java.util.List;
 
-import com.multishop.model.dto.CategoryDTO;
 import com.multishop.model.dto.ProductAttributeValueDTO;
 import com.multishop.model.dto.ProductImageDTO;
 
@@ -20,7 +19,7 @@ public class ProductRequest {
 	private Float discount;
 	private Integer stock;
 	private Byte status;
-	private CategoryDTO categoryDTO;
+	private Long categoryId;
 	private List<ProductImageDTO> productImages;
 	private List<ProductAttributeValueDTO> attributeValues;
 	

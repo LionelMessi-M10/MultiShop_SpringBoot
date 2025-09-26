@@ -1,8 +1,6 @@
 package com.multishop.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -35,7 +33,7 @@ public class Category extends Base {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> children = new ArrayList<>();
+    private Set<Category> children = new HashSet<>();
 
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
