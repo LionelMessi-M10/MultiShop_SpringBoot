@@ -24,26 +24,26 @@ public class Message extends Base {
 	@ManyToOne
 	@JoinColumn(name = "sender_id", nullable = false)
 	private User senderUser;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "receive_id", nullable = false)
 	private User receiveUser;
-	
-	@ManyToOne
-	@JoinColumn(name = "shop_id")
-	private Shop shop;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	
+
+	// @ManyToOne
+	// @JoinColumn(name = "shop_id")
+	// private Shop shop;
+
+	// @ManyToOne
+	// @JoinColumn(name = "user_id")
+	// private User user;
+
 	@Lob
 	@Column(name = "content", columnDefinition = "TEXT")
 	private String content;
-	
+
 	@Column(name = "sent_at", nullable = false)
 	private LocalDateTime sendAt; // Thoi gian gui tin nhan
-	
+
 	@Column(name = "is_read")
 	private Boolean isRead;
 }
