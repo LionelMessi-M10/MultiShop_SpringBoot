@@ -1,13 +1,12 @@
 package com.multishop.entity;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +40,7 @@ public class ShippingMethod extends Base { // Phương thức vận chuyển
     @Column(name = "max_delivery_days")
     private Integer maxDeliveryDays; // Số ngày giao hàng tối đa
 
-    @OneToMany(mappedBy = "shippingMethod", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<ShopShippingMethod> shopShippingMethods;
+    @ManyToMany(mappedBy = "shippingMethods")
+    private Set<Shop> shops;
 
 }

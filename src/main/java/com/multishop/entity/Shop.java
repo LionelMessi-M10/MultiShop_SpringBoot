@@ -2,6 +2,7 @@ package com.multishop.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import com.multishop.enums.ActiveStatus;
 
@@ -12,7 +13,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -66,8 +68,9 @@ public class Shop extends Base {
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Message> messages;
 
-    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<ShopShippingMethod> shopShippingMethods;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "shop_shipping_methods", joinColumns = @JoinColumn(name = "shop_id"), inverseJoinColumns = @JoinColumn(name = "shipping_method_id"))
+    private Set<ShippingMethod> shippingMethods;
     
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<ReturnPolicy> returnPolicies; // Danh sách chính sách trả hàng của cửa hàng

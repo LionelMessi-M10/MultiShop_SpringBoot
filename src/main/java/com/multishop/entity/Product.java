@@ -1,7 +1,9 @@
 package com.multishop.entity;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.multishop.enums.ProductStatus;
 
@@ -11,7 +13,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -77,13 +81,13 @@ public class Product extends Base {
     @Column(name = "review_count")
     private Integer reviewCount = 0; // Số lượng người dùng review
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category; // Loại sản phẩm cha
-
-    @ManyToOne
-    @JoinColumn(name = "sub_category_id", nullable = true)
-    private SubCategory subCategory; // Loại sản phẩm con
+    @ManyToMany
+    @JoinTable(
+        name = "product_category",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<ProductImage> images;
