@@ -2,18 +2,19 @@ package com.multishop.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.multishop.converter.CategoryConverter;
 import com.multishop.entity.Category;
 import com.multishop.entity.Shop;
+import com.multishop.model.dto.CategorySearchCriteria;
 import com.multishop.model.request.CategoryRequest;
 import com.multishop.model.response.CategoryResponse;
 import com.multishop.repository.CategoryRepository;
 import com.multishop.repository.ShopRepository;
 import com.multishop.service.CategoryService;
+import com.multishop.specification.CategorySpecification;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -117,9 +118,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<CategoryResponse> getAll(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id").ascending());
-        Page<Category> categories = categoryRepository.findAll(pageable);
+    public Page<CategoryResponse> getAll(CategorySearchCriteria categorySearchCriteria) {
+        Page<Category> categories = categoryRepository.searchCategories(categorySearchCriteria);
         return categories.map(categoryConverter::toResponse);
     }
+
+	@Override
+	public Page<CategoryResponse> searchBySpecification(CategorySearchCriteria criteria) {
+		Specification<Category> spec = Specification
+                .where(CategorySpecification.hasKeySearch(criteria.getKeySearch()))
+                .and(CategorySpecification.hasStatus(criteria.getStatus()))
+                .and(CategorySpecification.hasShopId(criteria.getShopId()));
+		
+		return categoryRepository.findAll(
+	            spec,
+	            PageRequest.of(criteria.getPageNo(), criteria.getPageSize())
+	        ).map(categoryConverter::toResponse);
+	}
 }

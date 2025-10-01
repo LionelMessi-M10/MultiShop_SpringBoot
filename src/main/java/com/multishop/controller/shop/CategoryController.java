@@ -5,15 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.multishop.entity.Category;
+import com.multishop.model.dto.CategorySearchCriteria;
 import com.multishop.model.request.CategoryRequest;
 import com.multishop.model.response.CategoryResponse;
 import com.multishop.payload.ApiResponse;
@@ -30,18 +30,29 @@ public class CategoryController {
 	private final CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<?> getAllCategories(
-	        @RequestParam(defaultValue = "0") int pageNo,
-	        @RequestParam(defaultValue = "10") int pageSize
-	) {
+	public ResponseEntity<?> getAllCategories(@ModelAttribute CategorySearchCriteria categorySearchCriteria) {
 
-	    Page<CategoryResponse> result = categoryService.getAll(pageNo, pageSize);
+	    Page<CategoryResponse> result = categoryService.getAll(categorySearchCriteria);
 
 	    return ResponseEntity.ok(
 	        ApiResponse.success(
 	            HttpStatus.OK,
 	            result,
-	            "Get all categories successfully"
+	            "Get all categories by custom successfully"
+	        )
+	    );
+	}
+	
+	@GetMapping("/searchBySpecification")
+	public ResponseEntity<?> searchBySpecification(@ModelAttribute CategorySearchCriteria categorySearchCriteria) {
+
+	    Page<CategoryResponse> result = categoryService.searchBySpecification(categorySearchCriteria);
+
+	    return ResponseEntity.ok(
+	        ApiResponse.success(
+	            HttpStatus.OK,
+	            result,
+	            "Get all categories by specification successfully"
 	        )
 	    );
 	}
