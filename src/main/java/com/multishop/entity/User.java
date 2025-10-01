@@ -104,8 +104,11 @@ public class User extends Base {
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private List<Notification> notifications;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
-	private List<Message> messages;
+	@OneToMany(mappedBy = "senderUser", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Message> sendMessages;
+	
+	@OneToMany(mappedBy = "receiveUser", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	private List<Message> receiveMessages;
 
 	// Logic kiểm tra tài khoản chính
 	public boolean isMainAccount() {
