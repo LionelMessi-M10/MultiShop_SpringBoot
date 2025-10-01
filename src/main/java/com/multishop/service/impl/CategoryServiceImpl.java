@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
         // Covert sang entity
         Category category = categoryConverter.toEntity(request, parent, shop);
         
-        category.setStatus((byte) 1);
+        category.setStatus(1);
         category = categoryRepository.save(category);
         
         return categoryConverter.toResponse(category);
@@ -107,7 +107,7 @@ public class CategoryServiceImpl implements CategoryService {
     	Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found: " + id));
     	
-    	category.setStatus((byte) 0);
+    	category.setStatus(0);
         categoryRepository.save(category);
         
         return categoryConverter.toResponse(category);
@@ -132,6 +132,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	    Pageable pageable = PageRequest.of(criteria.getPageNo(), criteria.getPageSize());
 
-	    return categoryRepository.findAll(spec, pageable).map(categoryConverter::toResponse);
+	    return categoryRepository.findAll(spec, pageable)
+	            .map(categoryConverter::toResponse);
 	}
 }

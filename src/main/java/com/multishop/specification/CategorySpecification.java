@@ -28,15 +28,21 @@ public class CategorySpecification {
 	 */
 
 	public static Specification<Category> filter(CategorySearchCriteria criteria) {
-        return Specification
-                .where(hasKeySearch(criteria.getKeySearch()))
-                .and(hasStatus(criteria.getStatus()))
-                .and(hasShopId(criteria.getShopId()))
-                .and(hasParentId(criteria.getParentId()))
-                .and(parentOrChildren(criteria.getParentOnly(), criteria.getChildrenOnly()));
-    }
+	    Specification<Category> spec = Specification
+	            .where(hasKeySearch(criteria.getKeySearch()))
+	            .and(hasStatus(criteria.getStatus()))
+	            .and(hasShopId(criteria.getShopId()))
+	            .and(hasParentId(criteria.getParentId()));
 
-    // search theo name (keySearch)
+	    // chỉ dùng parentOrChildren khi không filter theo parentId
+	    if (criteria.getParentId() == null) {
+	        spec = spec.and(parentOrChildren(criteria.getParentOnly(), criteria.getChildrenOnly()));
+	    }
+
+	    return spec;
+	}
+
+
     public static Specification<Category> hasKeySearch(String keySearch) {
         return (root, query, cb) -> {
             if (keySearch == null || keySearch.isEmpty()) {
@@ -46,15 +52,13 @@ public class CategorySpecification {
         };
     }
 
-    // status
-    public static Specification<Category> hasStatus(Boolean status) {
+    public static Specification<Category> hasStatus(Byte status) {
         return (root, query, cb) -> {
-            if (status == null) return null;
+            if (status  == null) return null;
             return cb.equal(root.get("status"), status);
         };
     }
 
-    // shopId
     public static Specification<Category> hasShopId(Long shopId) {
         return (root, query, cb) -> {
             if (shopId == null) return null;
@@ -62,7 +66,6 @@ public class CategorySpecification {
         };
     }
 
-    // parentId
     public static Specification<Category> hasParentId(Long parentId) {
         return (root, query, cb) -> {
             if (parentId == null) return null;
@@ -70,7 +73,6 @@ public class CategorySpecification {
         };
     }
 
-    // lọc parent hay children
     public static Specification<Category> parentOrChildren(Boolean parentOnly, Boolean childrenOnly) {
         return (root, query, cb) -> {
             if (Boolean.TRUE.equals(parentOnly)) {
@@ -79,11 +81,9 @@ public class CategorySpecification {
             if (Boolean.TRUE.equals(childrenOnly)) {
                 return cb.isNotNull(root.get("parent")); // chỉ children
             }
-            // Mặc định: chỉ lấy parent để xây tree
+            // mặc định lấy parent thôi để xây tree
             return cb.isNull(root.get("parent"));
         };
     }
-
-
 
 }

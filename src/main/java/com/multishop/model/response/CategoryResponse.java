@@ -14,7 +14,7 @@ public class CategoryResponse {
 	private Long id;
 	private String name;
 	private String image;
-	private Byte status;
+	private Integer status;
 	private Long categoryParentId;
 	private String categoryParentName;
 	private Long shopId;

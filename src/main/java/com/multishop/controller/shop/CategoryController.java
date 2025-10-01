@@ -31,7 +31,7 @@ public class CategoryController {
 	
 	@GetMapping
 	public ResponseEntity<?> getAllCategories(@ModelAttribute CategorySearchCriteria categorySearchCriteria) {
-
+		
 	    Page<CategoryResponse> result = categoryService.getAll(categorySearchCriteria);
 
 	    return ResponseEntity.ok(
@@ -44,7 +44,12 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/searchBySpecification")
-	public ResponseEntity<?> searchBySpecification(@ModelAttribute CategorySearchCriteria categorySearchCriteria) {
+	public ResponseEntity<?> searchBySpecification(@RequestBody(required = false) CategorySearchCriteria categorySearchCriteria) {
+		
+		System.out.println("----------------------------------------------------");
+		System.out.println(categorySearchCriteria.getStatus());
+		System.out.println(categorySearchCriteria.getParentId());
+		System.out.println("----------------------------------------------------");
 
 	    Page<CategoryResponse> result = categoryService.searchBySpecification(categorySearchCriteria);
 

@@ -21,7 +21,7 @@ public abstract class Base implements Serializable {
     private Long id;
 
     @Column(name = "status")
-    private Byte status;
+    private Integer status;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)

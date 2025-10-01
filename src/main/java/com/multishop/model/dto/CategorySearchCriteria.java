@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CategorySearchCriteria {
     private String keySearch;
-    private Boolean status;
+    private Byte status;
     private Long shopId;
 
     // nếu true → chỉ lấy category cha
