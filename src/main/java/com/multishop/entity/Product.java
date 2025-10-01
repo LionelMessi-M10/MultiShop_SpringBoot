@@ -83,7 +83,7 @@ public class Product extends Base {
 
     @ManyToMany
     @JoinTable(
-        name = "product_category",
+        name = "product_categories",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
