@@ -3,6 +3,9 @@ package com.multishop.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,9 +33,11 @@ public class Category extends Base {
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+	@JsonBackReference // bỏ qua parent khi serialize
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
+    @JsonManagedReference // serialize children
     private Set<Category> children = new HashSet<>();
 
     @ManyToMany(mappedBy = "categories")

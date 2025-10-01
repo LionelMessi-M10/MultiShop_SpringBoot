@@ -53,6 +53,8 @@ public class CategoryServiceImpl implements CategoryService {
 
         // Covert sang entity
         Category category = categoryConverter.toEntity(request, parent, shop);
+        
+        category.setStatus((byte) 1);
         category = categoryRepository.save(category);
         
         return categoryConverter.toResponse(category);
@@ -126,13 +128,14 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Page<CategoryResponse> searchBySpecification(CategorySearchCriteria criteria) {
 		Specification<Category> spec = Specification
-                .where(CategorySpecification.hasKeySearch(criteria.getKeySearch()))
-                .and(CategorySpecification.hasStatus(criteria.getStatus()))
-                .and(CategorySpecification.hasShopId(criteria.getShopId()));
-		
-		return categoryRepository.findAll(
+	            .where(CategorySpecification.hasKeySearch(criteria.getKeySearch()))
+	            .and(CategorySpecification.hasStatus(criteria.getStatus()))
+	            .and(CategorySpecification.hasShopId(criteria.getShopId()))
+	            .and(CategorySpecification.isRootCategory()); // chỉ lấy category gốc
+
+	    return categoryRepository.findAll(
 	            spec,
 	            PageRequest.of(criteria.getPageNo(), criteria.getPageSize())
-	        ).map(categoryConverter::toResponse);
+	    ).map(categoryConverter::toResponse);
 	}
 }

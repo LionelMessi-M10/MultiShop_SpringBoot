@@ -58,4 +58,9 @@ public class CategorySpecification {
             return cb.equal(root.get("shop").get("id"), shopId);
         };
     }
+    
+    public static Specification<Category> isRootCategory() {
+        return (root, query, cb) -> cb.isNull(root.get("parent"));
+    }
+    
 }

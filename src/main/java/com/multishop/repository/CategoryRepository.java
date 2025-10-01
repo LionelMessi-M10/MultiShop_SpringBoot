@@ -29,5 +29,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long>
 
 	// tìm các category con của một parent
 	List<Category> findAllByParent_Id(Long parentId);
+	
+//	@EntityGraph(attributePaths = {"children", "children.children"})
+//    Page<Category> findAll(Specification<Category> spec, PageRequest pageRequest);
 
 }

@@ -1,5 +1,7 @@
 package com.multishop.model.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +20,5 @@ public class CategoryResponse {
 	private Long shopId;
 	private String shopName;
 	
+	private List<CategoryResponse> children; // đệ quy
 }
