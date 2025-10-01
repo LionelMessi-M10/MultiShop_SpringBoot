@@ -2,6 +2,7 @@ package com.multishop.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -127,15 +128,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Page<CategoryResponse> searchBySpecification(CategorySearchCriteria criteria) {
-		Specification<Category> spec = Specification
-	            .where(CategorySpecification.hasKeySearch(criteria.getKeySearch()))
-	            .and(CategorySpecification.hasStatus(criteria.getStatus()))
-	            .and(CategorySpecification.hasShopId(criteria.getShopId()))
-	            .and(CategorySpecification.isRootCategory()); // chỉ lấy category gốc
+		Specification<Category> spec = CategorySpecification.filter(criteria);
 
-	    return categoryRepository.findAll(
-	            spec,
-	            PageRequest.of(criteria.getPageNo(), criteria.getPageSize())
-	    ).map(categoryConverter::toResponse);
+	    Pageable pageable = PageRequest.of(criteria.getPageNo(), criteria.getPageSize());
+
+	    return categoryRepository.findAll(spec, pageable).map(categoryConverter::toResponse);
 	}
 }
