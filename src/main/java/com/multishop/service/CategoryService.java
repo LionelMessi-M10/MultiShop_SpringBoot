@@ -10,7 +10,7 @@ public interface CategoryService {
 
 	CategoryResponse update(Long id, CategoryRequest request);
 
-	void delete(Long id);
+	CategoryResponse delete(Long id);
 
 	CategoryResponse getById(Long id);
 

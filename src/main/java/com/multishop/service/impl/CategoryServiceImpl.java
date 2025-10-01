@@ -1,18 +1,22 @@
 package com.multishop.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
 import com.multishop.converter.CategoryConverter;
-import com.multishop.model.request.CategoryRequest;
-import com.multishop.model.response.CategoryResponse;
 import com.multishop.entity.Category;
 import com.multishop.entity.Shop;
+import com.multishop.model.request.CategoryRequest;
+import com.multishop.model.response.CategoryResponse;
 import com.multishop.repository.CategoryRepository;
 import com.multishop.repository.ShopRepository;
 import com.multishop.service.CategoryService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.data.domain.*;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -22,53 +26,87 @@ public class CategoryServiceImpl implements CategoryService {
     private final ShopRepository shopRepository;
     private final CategoryConverter categoryConverter;
 
+    /**
+     * Tạo mới category
+     * 
+     * @param request CategoryRequest từ frontend gửi
+     * @return Category mới được tạo
+     */
+    @Transactional
     @Override
     public CategoryResponse create(CategoryRequest request) {
-        Category parent = null;
+        
+        // Lấy thông tin category cha
+    	Category parent = null;
         if (request.getParentId() != null) {
             parent = categoryRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("Parent category not found: " + request.getParentId()));
         }
 
+        // Lấy thông tin shop tương ứng
         Shop shop = null;
         if (request.getShopId() != null) {
             shop = shopRepository.findById(request.getShopId())
                     .orElseThrow(() -> new RuntimeException("Shop not found: " + request.getShopId()));
         }
 
+        // Covert sang entity
         Category category = categoryConverter.toEntity(request, parent, shop);
         category = categoryRepository.save(category);
+        
         return categoryConverter.toResponse(category);
     }
 
+    /**
+     * Cập nhật category đã có trong DB
+     * 
+     * @param id Mã id của category trong DB
+     * @param request CategoryRequest từ frontend gửi để thay đổi category có sẵn
+     * @return Category được cập nhật
+     */
+    @Transactional
     @Override
     public CategoryResponse update(Long id, CategoryRequest request) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found: " + id));
 
+        // Lấy thông tin category cha
         Category parent = null;
         if (request.getParentId() != null) {
             parent = categoryRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("Parent category not found: " + request.getParentId()));
         }
 
+        // Lấy thông tin shop tương ứng
         Shop shop = null;
         if (request.getShopId() != null) {
             shop = shopRepository.findById(request.getShopId())
                     .orElseThrow(() -> new RuntimeException("Shop not found: " + request.getShopId()));
         }
 
+        // Cập nhật thông tin category trong DB từ CategoryRequest
         categoryConverter.updateEntity(category, request, parent, shop);
         category = categoryRepository.save(category);
+        
         return categoryConverter.toResponse(category);
     }
 
+    /**
+     * Cập nhật trạng thái category đã có trong DB, không xoá trực tiếp
+     * 
+     * @param id Mã id của category trong DB
+     * @return Category được cập nhật
+     */
+    @Transactional
     @Override
-    public void delete(Long id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category not found: " + id);
-        }
-        categoryRepository.deleteById(id);
+    public CategoryResponse delete(Long id) {
+    	Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found: " + id));
+    	
+    	category.setStatus((byte) 0);
+        categoryRepository.save(category);
+        
+        return categoryConverter.toResponse(category);
     }
 
     @Override
