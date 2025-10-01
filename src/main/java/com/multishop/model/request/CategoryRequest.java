@@ -13,5 +13,6 @@ public class CategoryRequest {
     private String image;
     private Long parentId;   // id category cha
     private Long shopId;     // id shop
+	private Byte status;
 	
 }

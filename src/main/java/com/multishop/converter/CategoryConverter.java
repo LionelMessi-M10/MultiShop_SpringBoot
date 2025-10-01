@@ -18,9 +18,13 @@ public class CategoryConverter {
 	private final ModelMapper modelMapper;
 
     public Category toEntity(CategoryRequest request, Category parent, Shop shop) {
-        Category category = modelMapper.map(request, Category.class);
-        category.setParent(parent);
-        category.setShop(shop);
+        Category category = new Category();
+        
+        category.setName(request.getName());
+        category.setImage(request.getImage());
+        
+        if(parent != null) category.setParent(parent);
+        if(shop != null) category.setShop(shop);
         return category;
     }
 

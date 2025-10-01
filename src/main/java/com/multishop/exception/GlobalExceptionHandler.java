@@ -40,10 +40,10 @@ public class GlobalExceptionHandler {
     }
 
     // Bắt các Exception chung
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<String>> handleGlobalException(Exception ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse<String>> handleGlobalException(RuntimeException ex) {
         log.error("Unhandled exception: ", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"));
+                .body(ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
     }
 }
