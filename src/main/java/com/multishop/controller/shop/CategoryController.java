@@ -23,7 +23,7 @@ public class CategoryController {
 	private final CategoryService categoryService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<ApiResponse> getAllCategories(
+	public ResponseEntity<?> getAllCategories(
 	        @RequestParam(defaultValue = "0") int pageNo,
 	        @RequestParam(defaultValue = "10") int pageSize) {
 
@@ -39,7 +39,7 @@ public class CategoryController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<ApiResponse> updateCategory() {
+	public ResponseEntity<?> updateCategory() {
 		return null;
 	}
 	
