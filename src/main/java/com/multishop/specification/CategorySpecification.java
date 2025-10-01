@@ -6,7 +6,7 @@ import com.multishop.model.dto.CategorySearchCriteria;
 
 public class CategorySpecification {
 
-	/*
+	/**
 	 * 
 	 * root: Đại diện cho entity gốc mà bạn đang query (ở đây là Category). Ví dụ:
 	 * root.get("name") tương ứng với cột name trong bảng categories. Nếu quan hệ
