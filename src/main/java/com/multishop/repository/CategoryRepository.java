@@ -21,9 +21,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long>
 	// tìm category theo tên
 	Optional<Category> findByName(String name);
 
-	// tìm các category theo shopId
-	List<Category> findAllByShop_Id(Long shopId);
-
 	// tìm các category có parent_id null (root category)
 	List<Category> findAllByParentIsNull();
 
