@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true) // cho phép @PreAuthorize, @Secured,...
 public class SecurityConfig {
 
 	private final CustomUserDetailsService userDetailsService;
