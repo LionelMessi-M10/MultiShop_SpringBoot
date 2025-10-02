@@ -28,61 +28,51 @@ public class CategorySpecification {
 	 */
 
 	public static Specification<Category> filter(CategorySearchCriteria criteria) {
-	    Specification<Category> spec = Specification
-	            .where(hasKeySearch(criteria.getKeySearch()))
-	            .and(hasStatus(criteria.getStatus()))
-	            .and(hasShopId(criteria.getShopId()))
-	            .and(hasParentId(criteria.getParentId()));
+        Specification<Category> spec = Specification
+                .where(hasKeySearch(criteria.getKeySearch()))
+                .and(hasStatus(criteria.getStatus()))
+                .and(hasParentId(criteria.getParentId()))
+                .and(hasLevel(criteria.getLevel()))
+                .and(hasPath(criteria.getPath()));
 
-	    // chỉ dùng parentOrChildren khi không filter theo parentId
-	    if (criteria.getParentId() == null) {
-	        spec = spec.and(parentOrChildren(criteria.getParentOnly(), criteria.getChildrenOnly()));
-	    }
+        if (criteria.getParentId() == null) {
+            spec = spec.and(parentOrChildren(criteria.getParentOnly(), criteria.getChildrenOnly()));
+        }
 
-	    return spec;
-	}
-
+        return spec;
+    }
 
     public static Specification<Category> hasKeySearch(String keySearch) {
         return (root, query, cb) -> {
-            if (keySearch == null || keySearch.isEmpty()) {
-                return null;
-            }
+            if (keySearch == null || keySearch.isBlank()) return null;
             return cb.like(cb.lower(root.get("name")), "%" + keySearch.toLowerCase() + "%");
         };
     }
 
     public static Specification<Category> hasStatus(Byte status) {
-        return (root, query, cb) -> {
-            if (status  == null) return null;
-            return cb.equal(root.get("status"), status);
-        };
-    }
-
-    public static Specification<Category> hasShopId(Long shopId) {
-        return (root, query, cb) -> {
-            if (shopId == null) return null;
-            return cb.equal(root.get("shop").get("id"), shopId);
-        };
+        return (root, query, cb) -> status == null ? null : cb.equal(root.get("status"), status);
     }
 
     public static Specification<Category> hasParentId(Long parentId) {
+        return (root, query, cb) -> parentId == null ? null : cb.equal(root.get("parent").get("id"), parentId);
+    }
+
+    public static Specification<Category> hasLevel(Integer level) {
+        return (root, query, cb) -> level == null ? null : cb.equal(root.get("level"), level);
+    }
+
+    public static Specification<Category> hasPath(String path) {
         return (root, query, cb) -> {
-            if (parentId == null) return null;
-            return cb.equal(root.get("parent").get("id"), parentId);
+            if (path == null || path.isBlank()) return null;
+            return cb.like(root.get("path"), path + "%");
         };
     }
 
     public static Specification<Category> parentOrChildren(Boolean parentOnly, Boolean childrenOnly) {
         return (root, query, cb) -> {
-            if (Boolean.TRUE.equals(parentOnly)) {
-                return cb.isNull(root.get("parent")); // chỉ parent
-            }
-            if (Boolean.TRUE.equals(childrenOnly)) {
-                return cb.isNotNull(root.get("parent")); // chỉ children
-            }
-            // mặc định lấy parent thôi để xây tree
-            return cb.isNull(root.get("parent"));
+            if (Boolean.TRUE.equals(parentOnly)) return cb.isNull(root.get("parent"));
+            if (Boolean.TRUE.equals(childrenOnly)) return cb.isNotNull(root.get("parent"));
+            return null; // không filter
         };
     }
 

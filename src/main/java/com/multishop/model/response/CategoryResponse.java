@@ -17,8 +17,10 @@ public class CategoryResponse {
 	private Integer status;
 	private Long categoryParentId;
 	private String categoryParentName;
+	private Integer level;
+	private String path;
 	private Long shopId;
 	private String shopName;
-	
+
 	private List<CategoryResponse> children; // đệ quy
 }

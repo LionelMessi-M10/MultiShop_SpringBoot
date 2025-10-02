@@ -32,6 +32,14 @@ public class Category extends Base {
 
 	@Column(name = "image")
 	private String image;
+	
+	// Cấp độ category trong cây, đánh dấu mức độ sâu của category trong cây phân cấp
+    @Column(name = "level")
+    private Integer level;
+
+    // Đường dẫn cha-con (ví dụ: "1/5/10"), là chuỗi các ID của parent → node hiện tại, ngăn cách bằng / hoặc dấu khác
+    @Column(name = "path")
+    private String path;
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -44,9 +52,5 @@ public class Category extends Base {
 
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
-
-	@ManyToOne
-	@JoinColumn(name = "shop_id")
-	private Shop shop;
 
 }

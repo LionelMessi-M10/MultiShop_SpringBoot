@@ -3,17 +3,16 @@ package com.multishop.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.multishop.converter.CategoryConverter;
 import com.multishop.entity.Category;
-import com.multishop.entity.Shop;
 import com.multishop.model.dto.CategorySearchCriteria;
 import com.multishop.model.request.CategoryRequest;
 import com.multishop.model.response.CategoryResponse;
 import com.multishop.repository.CategoryRepository;
-import com.multishop.repository.ShopRepository;
 import com.multishop.service.CategoryService;
 import com.multishop.specification.CategorySpecification;
 
@@ -25,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final ShopRepository shopRepository;
     private final CategoryConverter categoryConverter;
 
     /**
@@ -37,27 +35,28 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public CategoryResponse create(CategoryRequest request) {
-        
-        // Lấy thông tin category cha
-    	Category parent = null;
+        Category parent = null;
         if (request.getParentId() != null) {
             parent = categoryRepository.findById(request.getParentId())
-                    .orElseThrow(() -> new RuntimeException("Parent category not found: " + request.getParentId()));
+                    .orElseThrow(() -> new RuntimeException("Parent category not found"));
         }
 
-        // Lấy thông tin shop tương ứng
-        Shop shop = null;
-        if (request.getShopId() != null) {
-            shop = shopRepository.findById(request.getShopId())
-                    .orElseThrow(() -> new RuntimeException("Shop not found: " + request.getShopId()));
-        }
+        // Tạo entity từ request
+        Category category = categoryConverter.toEntity(request, parent);
 
-        // Covert sang entity
-        Category category = categoryConverter.toEntity(request, parent, shop);
-        
-        category.setStatus(1);
+        // set level
+        category.setLevel(parent == null ? 0 : parent.getLevel() + 1);
+
+        // set path tạm thời để save lần 1
+        category.setPath(parent == null ? "" : parent.getPath() + "/");
         category = categoryRepository.save(category);
+
+        // update path với ID thực
+        category.setPath((parent == null ? "" : parent.getPath() + "/") + category.getId());
+        category.setStatus(1);
         
+        category = categoryRepository.save(category);
+
         return categoryConverter.toResponse(category);
     }
 
@@ -70,28 +69,25 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Transactional
     @Override
-    public CategoryResponse update(Long id, CategoryRequest request) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found: " + id));
+    public CategoryResponse update(Long categoryId, CategoryRequest request) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Lấy thông tin category cha
         Category parent = null;
         if (request.getParentId() != null) {
             parent = categoryRepository.findById(request.getParentId())
-                    .orElseThrow(() -> new RuntimeException("Parent category not found: " + request.getParentId()));
+                    .orElseThrow(() -> new RuntimeException("Parent category not found"));
         }
 
-        // Lấy thông tin shop tương ứng
-        Shop shop = null;
-        if (request.getShopId() != null) {
-            shop = shopRepository.findById(request.getShopId())
-                    .orElseThrow(() -> new RuntimeException("Shop not found: " + request.getShopId()));
-        }
+        // Cập nhật entity
+        categoryConverter.updateEntity(category, request, parent);
 
-        // Cập nhật thông tin category trong DB từ CategoryRequest
-        categoryConverter.updateEntity(category, request, parent, shop);
+        // update level & path
+        category.setLevel(parent == null ? 0 : parent.getLevel() + 1);
+        category.setPath((parent == null ? "" : parent.getPath() + "/") + category.getId());
+
         category = categoryRepository.save(category);
-        
+
         return categoryConverter.toResponse(category);
     }
 
@@ -126,13 +122,27 @@ public class CategoryServiceImpl implements CategoryService {
         return categories.map(categoryConverter::toResponse);
     }
 
-	@Override
-	public Page<CategoryResponse> searchBySpecification(CategorySearchCriteria criteria) {
-		Specification<Category> spec = CategorySpecification.filter(criteria);
+    @Override
+    public Page<CategoryResponse> searchBySpecification(CategorySearchCriteria criteria) {
+        // Nếu pageNo < 0 thì reset về 0
+        Integer pageNo = (criteria.getPageNo() != null && criteria.getPageNo() >= 0) ? criteria.getPageNo() : 0;
+        Integer pageSize = (criteria.getPageSize() != null && criteria.getPageSize() > 0) ? criteria.getPageSize() : 10;
 
-	    Pageable pageable = PageRequest.of(criteria.getPageNo(), criteria.getPageSize());
+        // Nếu criteria có sortBy + direction thì áp dụng, còn không thì default
+        Sort sort = Sort.by("id").descending();
+        if (criteria.getSortBy() != null && !criteria.getSortBy().isBlank()) {
+            Sort.Direction direction = (criteria.getSortDir() != null && criteria.getSortDir().equalsIgnoreCase("asc"))
+                    ? Sort.Direction.ASC
+                    : Sort.Direction.DESC;
+            sort = Sort.by(direction, criteria.getSortBy());
+        }
 
-	    return categoryRepository.findAll(spec, pageable)
-	            .map(categoryConverter::toResponse);
-	}
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Specification<Category> spec = CategorySpecification.filter(criteria);
+
+        return categoryRepository.findAll(spec, pageable)
+                .map(categoryConverter::toResponse);
+    }
+
 }

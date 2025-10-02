@@ -24,48 +24,62 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
     @Override
     public Page<Category> searchCategories(CategorySearchCriteria criteria) {
-        StringBuilder jpql = new StringBuilder("SELECT c FROM Category c WHERE 1=1 ");
-        StringBuilder countJpql = new StringBuilder("SELECT COUNT(c) FROM Category c WHERE 1=1 ");
+        StringBuilder jpql = new StringBuilder("SELECT DISTINCT c FROM Category c WHERE 1=1 ");
+        StringBuilder countJpql = new StringBuilder("SELECT COUNT(DISTINCT c) FROM Category c WHERE 1=1 ");
         List<Object> params = new ArrayList<>();
+        int idx = 1;
 
-        // keySearch theo name
-        if (criteria.getKeySearch() != null && !criteria.getKeySearch().isEmpty()) {
-            jpql.append(" AND LOWER(c.name) LIKE LOWER(CONCAT('%', ?1, '%')) ");
-            countJpql.append(" AND LOWER(c.name) LIKE LOWER(CONCAT('%', ?1, '%')) ");
+        // keySearch
+        if (criteria.getKeySearch() != null && !criteria.getKeySearch().isBlank()) {
+            jpql.append(" AND LOWER(c.name) LIKE LOWER(CONCAT('%', ?" + idx + ", '%'))");
+            countJpql.append(" AND LOWER(c.name) LIKE LOWER(CONCAT('%', ?" + idx + ", '%'))");
             params.add(criteria.getKeySearch());
+            idx++;
         }
 
         // status
         if (criteria.getStatus() != null) {
-            jpql.append(" AND c.status = ?").append(params.size() + 1);
-            countJpql.append(" AND c.status = ?").append(params.size() + 1);
+            jpql.append(" AND c.status = ?" + idx);
+            countJpql.append(" AND c.status = ?" + idx);
             params.add(criteria.getStatus());
-        }
-
-        // shopId
-        if (criteria.getShopId() != null) {
-            jpql.append(" AND c.shop.id = ?").append(params.size() + 1);
-            countJpql.append(" AND c.shop.id = ?").append(params.size() + 1);
-            params.add(criteria.getShopId());
+            idx++;
         }
 
         // parentId
         if (criteria.getParentId() != null) {
-            jpql.append(" AND c.parent.id = ?").append(params.size() + 1);
-            countJpql.append(" AND c.parent.id = ?").append(params.size() + 1);
+            jpql.append(" AND c.parent.id = ?" + idx);
+            countJpql.append(" AND c.parent.id = ?" + idx);
             params.add(criteria.getParentId());
+            idx++;
         }
+
+        // level
+        if (criteria.getLevel() != null) {
+            jpql.append(" AND c.level = ?" + idx);
+            countJpql.append(" AND c.level = ?" + idx);
+            params.add(criteria.getLevel());
+            idx++;
+        }
+
+        // path
+        if (criteria.getPath() != null && !criteria.getPath().isBlank()) {
+            jpql.append(" AND c.path LIKE ?" + idx);
+            countJpql.append(" AND c.path LIKE ?" + idx);
+            params.add(criteria.getPath() + "%");
+            idx++;
+        }
+
+        // sort
+        jpql.append(" ORDER BY c." + criteria.getSortBy() + " " + criteria.getSortDir());
 
         TypedQuery<Category> query = entityManager.createQuery(jpql.toString(), Category.class);
         TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
 
-        // set params
         for (int i = 0; i < params.size(); i++) {
             query.setParameter(i + 1, params.get(i));
             countQuery.setParameter(i + 1, params.get(i));
         }
 
-        // phân trang
         query.setFirstResult(criteria.getPageNo() * criteria.getPageSize());
         query.setMaxResults(criteria.getPageSize());
 

@@ -1,25 +1,21 @@
 package com.multishop.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CategorySearchCriteria {
-    private String keySearch;
-    private Byte status;
-    private Long shopId;
+    private String keySearch;      // tìm theo tên
+    private Byte status;           // active/inactive
+    private Long parentId;         // lấy category con của parent nào đó
+    private Boolean parentOnly;    // chỉ lấy root category
+    private Boolean childrenOnly;  // chỉ lấy category con
+    private Integer level;         // cấp độ
+    private String path;           // filter theo cây path (prefix)
 
-    // nếu true → chỉ lấy category cha
-    private Boolean parentOnly;
-
-    // nếu true → chỉ lấy category con
-    private Boolean childrenOnly;
-
-    // nếu có → chỉ lấy category con của parent cụ thể
-    private Long parentId;
-
-    private int pageNo = 0;
-    private int pageSize = 10;
-    
+    // paging & sort
+    private Integer pageNo = 0;
+    private Integer pageSize = 10;
+    private String sortBy = "id";  // field sort
+    private String sortDir = "asc"; // asc | desc
 }
+

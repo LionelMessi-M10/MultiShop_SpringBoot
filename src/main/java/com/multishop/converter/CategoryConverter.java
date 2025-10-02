@@ -11,32 +11,34 @@ import com.multishop.model.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 
 import com.multishop.entity.Category;
-import com.multishop.entity.Shop;
 
 @RequiredArgsConstructor
 @Component
 public class CategoryConverter {
-	
-	private final ModelMapper modelMapper;
 
-    public Category toEntity(CategoryRequest request, Category parent, Shop shop) {
+    private final ModelMapper modelMapper;
+
+    public Category toEntity(CategoryRequest request, Category parent) {
         Category category = new Category();
         
         category.setName(request.getName());
         category.setImage(request.getImage());
-        
-        if(parent != null) category.setParent(parent);
-        if(shop != null) category.setShop(shop);
+        category.setStatus(request.getStatus());
+
+        if (parent != null) {
+            category.setParent(parent);
+        }
         return category;
     }
 
-    public void updateEntity(Category category, CategoryRequest request, Category parent, Shop shop) {
+    public void updateEntity(Category category, CategoryRequest request, Category parent) {
         category.setName(request.getName());
         category.setImage(request.getImage());
         category.setStatus(request.getStatus());
-        
-        if(parent != null) category.setParent(parent);
-        if(shop != null) category.setShop(shop);
+
+        if (parent != null) {
+            category.setParent(parent);
+        }
     }
 
     public CategoryResponse toResponse(Category category) {
@@ -47,19 +49,14 @@ public class CategoryConverter {
             response.setCategoryParentName(category.getParent().getName());
         }
 
-        if (category.getShop() != null) {
-            response.setShopId(category.getShop().getId());
-            response.setShopName(category.getShop().getShopName());
-        }
-        
         if (category.getChildren() != null && !category.getChildren().isEmpty()) {
-        	response.setChildren(
+            response.setChildren(
                 category.getChildren().stream()
                         .map(this::toResponse) // đệ quy
                         .collect(Collectors.toList())
             );
         }
-        
+
         return response;
     }
 }
