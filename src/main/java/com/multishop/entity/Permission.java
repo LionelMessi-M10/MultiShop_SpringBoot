@@ -2,9 +2,13 @@ package com.multishop.entity;
 
 import java.util.Set;
 
+import com.multishop.enums.PermissionScope;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -30,5 +34,9 @@ public class Permission extends Base {
     
     @OneToMany(mappedBy = "permission", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<RolePermission> rolePermissions;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PermissionScope scope; // SYSTEM, SHOP
 
 }

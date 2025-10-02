@@ -1,6 +1,7 @@
 package com.multishop.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -81,12 +82,8 @@ public class User extends Base {
 	@OneToMany(mappedBy = "mainAccount")
 	private Set<User> subAccounts;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "system_role_id")
-    private Role systemRole;
-	
-	@OneToMany(mappedBy = "staff", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
-	private List<ShopStaff> shopStaffs;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserRole> userRoles = new HashSet<>();
 	
 	@OneToOne(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Cart cart;

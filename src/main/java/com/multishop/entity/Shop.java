@@ -54,9 +54,6 @@ public class Shop extends Base {
 
     @Column(name = "rating", precision = 10, scale = 2)
     private BigDecimal rating;
-    
-    @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<ShopStaff> shopStaffs;
 
     @OneToMany(mappedBy = "shop", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Product> products;

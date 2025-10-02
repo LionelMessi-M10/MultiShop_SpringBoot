@@ -24,7 +24,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<String> permissions = new HashSet<>();
 
-        permissions.add(user.getSystemRole().getCode().name()); // ROLE_ADMIN, ROLE_USER...
+//        permissions.add(user.getUserRoles().stream().map(item -> item.getRole().getRolePermissions())); // ROLE_ADMIN, ROLE_USER...
 
         return permissions.stream()
                 .map(SimpleGrantedAuthority::new)

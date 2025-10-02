@@ -9,17 +9,22 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "role_permissions")
-public class RolePermission {
+@Table(name = "user_roles")
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id", nullable = false)
-    private Permission permission;
+    // Nếu role là SHOP thì phải gắn với shop_id
+    @Column(name = "shop_id")
+    private Long shopId;
 }
+

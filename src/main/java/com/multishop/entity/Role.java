@@ -3,6 +3,7 @@ package com.multishop.entity;
 import java.util.Set;
 
 import com.multishop.enums.ERole;
+import com.multishop.enums.RoleType;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,10 +30,14 @@ public class Role extends Base {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, unique = true)
 	private ERole code;
+	
+	@Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleType type; // SYSTEM, SHOP
 
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "role", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToMany(mappedBy = "role", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
 	private Set<RolePermission> rolePermissions;
 }
