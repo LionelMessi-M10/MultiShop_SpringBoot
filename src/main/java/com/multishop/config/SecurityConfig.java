@@ -38,7 +38,7 @@ public class SecurityConfig {
 		                    .requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().permitAll()
 			)
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Không lưu session, dùng JWT hoàn toàn
 			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
