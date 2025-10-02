@@ -32,6 +32,8 @@ import lombok.Setter;
 @Table(name = "shops")
 public class Shop extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @Column(name = "shop_name")
     @NotNull
     @NotBlank

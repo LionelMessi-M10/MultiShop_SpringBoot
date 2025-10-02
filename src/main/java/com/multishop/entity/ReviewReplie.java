@@ -11,6 +11,8 @@ import jakarta.persistence.Table;
 @Table(name = "review_replies")
 public class ReviewReplie extends Base { // Phan hoi danh gia
 
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne
 	@JoinColumn(name = "review_id", nullable = false)
 	private Review review;

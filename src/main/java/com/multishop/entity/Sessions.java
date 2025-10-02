@@ -20,6 +20,8 @@ import lombok.Setter;
 @Table(name = "sessions")
 public class Sessions extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;

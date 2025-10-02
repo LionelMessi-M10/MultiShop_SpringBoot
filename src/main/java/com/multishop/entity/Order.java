@@ -31,6 +31,8 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount; // Tổng tiền đơn hàng sau giảm giá
 

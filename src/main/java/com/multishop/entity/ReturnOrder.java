@@ -29,6 +29,8 @@ import lombok.Setter;
 @Table(name = "return_orders")
 public class ReturnOrder extends Base { // Yêu cầu trả hàng/hoàn tiền
 
+	private static final long serialVersionUID = 1L;
+	
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;

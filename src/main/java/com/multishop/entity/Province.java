@@ -16,6 +16,8 @@ import lombok.Setter;
 @Setter
 public class Province extends Base { // Tỉnh, thành phố
 
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "province_id")
 	private Integer provinceId;
 	

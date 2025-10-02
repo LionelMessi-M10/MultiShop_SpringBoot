@@ -33,6 +33,8 @@ import lombok.Setter;
 @Table(name = "products")
 public class Product extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @Column(name = "name", nullable = false)
     private String name;
 

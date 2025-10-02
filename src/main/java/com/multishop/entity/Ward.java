@@ -14,6 +14,8 @@ import lombok.Setter;
 @Setter
 public class Ward extends Base { // Phường, xã
 
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "ward_code")
 	private Integer wardCode;
 	

@@ -18,6 +18,8 @@ import lombok.Setter;
 @Setter
 public class District extends Base { // Quận, huyện
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "district_id")
 	private Integer districtId;
 

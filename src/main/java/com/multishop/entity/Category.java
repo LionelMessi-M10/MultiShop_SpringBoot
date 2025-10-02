@@ -23,6 +23,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "categories")
 public class Category extends Base {
+	
+	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	@Column(name = "name", unique = true)

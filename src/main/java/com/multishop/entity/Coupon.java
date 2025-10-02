@@ -25,6 +25,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "coupons")
 public class Coupon extends Base {
+	
+	private static final long serialVersionUID = 1L;
 
     @Column(name = "code", nullable = false, unique = true)
     private String code; // Ma giam gia

@@ -23,6 +23,8 @@ import lombok.Setter;
 @Table(name = "notifications")
 public class Notification extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // nếu có thông báo cho user cụ thể

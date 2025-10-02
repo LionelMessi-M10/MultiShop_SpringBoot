@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 @Table(name = "return_policies")
 public class ReturnPolicy extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop; // Liên kết đến cửa hàng

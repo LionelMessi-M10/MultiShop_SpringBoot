@@ -24,6 +24,8 @@ import lombok.Setter;
 @Table(name = "shippings")
 public class Shipping extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;

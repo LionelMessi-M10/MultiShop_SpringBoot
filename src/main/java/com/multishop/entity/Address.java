@@ -24,6 +24,8 @@ import lombok.Setter;
 @Table(name = "addresses")
 public class Address extends Base {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "receiver_name", length = 100)
 	private String receiveName;
 	

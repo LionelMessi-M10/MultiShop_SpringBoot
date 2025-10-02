@@ -20,6 +20,8 @@ import lombok.Setter;
 })
 public class CartItem extends Base {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne
 	@JoinColumn(name = "cart_id", nullable = false)
 	private Cart cart;

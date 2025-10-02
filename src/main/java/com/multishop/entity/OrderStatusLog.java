@@ -19,6 +19,8 @@ import lombok.Setter;
 @Table(name = "order_status_logs")
 public class OrderStatusLog extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @Lob
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;

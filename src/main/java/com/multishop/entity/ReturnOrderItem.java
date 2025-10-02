@@ -20,6 +20,8 @@ import lombok.Setter;
 @Table(name = "return_order_items")
 public class ReturnOrderItem extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @ManyToOne
     @JoinColumn(name = "return_order_id", nullable = false)
     private ReturnOrder returnOrder;

@@ -20,6 +20,8 @@ import lombok.Setter;
 @Table(name = "carts")
 public class Cart extends Base {
 	
+	private static final long serialVersionUID = 1L;
+	
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

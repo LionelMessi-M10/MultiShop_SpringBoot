@@ -18,6 +18,8 @@ import lombok.Setter;
 @Getter @Setter
 public class ProductImage extends Base {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "image_url")
     private String imageUrl;
 	

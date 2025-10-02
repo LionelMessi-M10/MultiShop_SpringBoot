@@ -20,6 +20,8 @@ import lombok.Setter;
 @Table(name = "order_details")
 public class OrderDetail extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 

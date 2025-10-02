@@ -30,6 +30,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 public class User extends Base {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "user_name", length = 255, nullable = false)
 	private String userName;

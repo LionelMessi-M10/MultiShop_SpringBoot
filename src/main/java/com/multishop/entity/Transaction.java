@@ -17,6 +17,8 @@ import jakarta.persistence.Table;
 @Table(name = "transactions")
 public class Transaction extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

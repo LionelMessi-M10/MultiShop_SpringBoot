@@ -20,6 +20,8 @@ import lombok.Setter;
 })
 public class WishList extends Base {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;

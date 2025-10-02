@@ -21,6 +21,8 @@ import lombok.Setter;
 @Table(name = "messages")
 public class Message extends Base {
 
+	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne
 	@JoinColumn(name = "sender_id", nullable = false)
 	private User senderUser;
