@@ -33,7 +33,7 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(
-				auth -> auth.requestMatchers("/api/auth/**").permitAll()
+				auth -> auth.requestMatchers("/api/v1/auth/**", "/health", "/swagger-ui/**").permitAll()
 							.requestMatchers("/admin/**").hasRole("ADMIN")
 		                    .requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().permitAll()
